@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class HomeController : Controller
     {
 
-        // Vuk Bibic Luka Pavlovic OPET
+        // ovo je neki drugi komentar
 
         public ActionResult Index()
         {
