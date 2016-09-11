@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3b64220a3eff43c881c411575faeaa91" Name="Diagram1">
+        <EntityTypeShape EntityType="CraftedFoodModel.Company" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.CompanyUser" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.Kettering" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.KetteringUser" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.Meal" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.MealCategory" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.Menu" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.Order" Width="1.5" PointX="7.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.Rating" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.Role" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.UnitOfMeasure" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.User" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CraftedFoodModel.UserRole" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="CraftedFoodModel.FK_CompanyUser_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_CompanyUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Order_CompanyUser" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Rating_CompanyUser" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_KetteringUser_Kettering" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Menu_Kettering" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_KetteringUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Meal_MealCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Meal_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Meal_UnitOfMeasure" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Order_Meal" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_Rating_Meal" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_UserRole_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
