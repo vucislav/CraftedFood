@@ -8,9 +8,6 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-
-        // ovo je neki drugi komentar
-
         public ActionResult Index()
         {
             return View();
