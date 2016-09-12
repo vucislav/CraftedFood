@@ -21,16 +21,48 @@ namespace Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public JsonResult Login(LoginModel model)
+        public ActionResult Login(LoginModel model)
         {
             int userId = UserLogic.AuthorizeUser(model.Login, model.Password);
             if (userId != 0)
             {
                 Session["userId"] = userId; // URADITI: da se upamte svi potrebni podaci
                 Session.Timeout = model.RememberMe ? 525600 : 20;
-                return Json(true);
+                return RedirectToAction("Index");
             }
-            return Json(false);
+            return RedirectToAction("Login");
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            UserLogic.ResetPasswordMail(model.Login);
+            return RedirectToAction("Login");
+        }
+
+        [AllowAnonymous]
+        public ActionResult PasswordReset(Guid token)
+        {
+            return View(new PasswordResetModel(token));
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult PasswordReset(PasswordResetModel model)
+        {
+            // URADITI: silne one neke validacije za PasswordReset
+            if (ModelState.IsValid)
+            {
+                UserLogic.ResetPassword(model.Guid, model.NewPassword);
+            }
+            return RedirectToAction("Login");
         }
 
         public ActionResult Index()

@@ -35,12 +35,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" id="login-btn" value="Login" class="btn btn-default">
+                <input type="submit" id="login-btn" value="Login" class="btn btn-default">
             </div>
         </div>
 </form>
 
+<a href="/Home/ResetPassword">Forgot your password?</a>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/Custom/login.js")
 }
