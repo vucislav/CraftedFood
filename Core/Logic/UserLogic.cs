@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Core.DTOs;
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Core.Logic
             using (var dc = new CraftedFoodEntities())
             {
                 var user = (from u in dc.User
-                            where (u.Username == login || u.Email == login) && u.Password == password
+                            where (u.Username == login || u.Email == login) && u.Password == password && u.DeleteDate == null
                             select u).ToList();
 
                 if (user.Any()) return user.First().UserId;
@@ -31,7 +32,7 @@ namespace Core.Logic
             using (var dc = new CraftedFoodEntities())
             {
                 var user = (from u in dc.User
-                            where (u.Username == login || u.Email == login)
+                            where (u.Username == login || u.Email == login) && u.DeleteDate == null
                             select u).ToList();
                 if (user.Any())
                 {
@@ -79,7 +80,7 @@ namespace Core.Logic
             using (var dc = new CraftedFoodEntities())
             {
                 var user = from u in dc.User
-                           where u.PasswordResetGuid == guid
+                           where u.PasswordResetGuid == guid && u.DeleteDate == null
                            select u;
                 if (user.Any())
                 {
@@ -96,6 +97,72 @@ namespace Core.Logic
                     }
                 }
             }
+        }
+
+        public static void CreateUser(SignUpDTO user)
+        {
+            User u = new User()
+            {
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Email = user.Email,
+                Phone = user.Phone,
+                Password = user.Password
+            };
+
+            using (var dc = new CraftedFoodEntities())
+            {
+                dc.User.Add(u);
+
+                try
+                {
+                    dc.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
+        public static IEnumerable<CompanyDTO> GetCompaniesForUser(int UserId)
+        {
+            List<CompanyDTO> companies = new List<CompanyDTO>();
+            using (var dc = new CraftedFoodEntities())
+            {
+                var user = (from u in dc.User
+                            where u.UserId == UserId && u.DeleteDate == null
+                            select u).FirstOrDefault();
+
+                if (user != null)
+                {
+                    foreach (var ket in user.KetteringUser)
+                    {
+                        companies.Add(new CompanyDTO
+                        {
+                            CompanyId = ket.Kettering.KetteringId,
+                            Name = ket.Kettering.Name,
+                            Description = ket.Kettering.Description,
+                            Address = ket.Kettering.Address,
+                            Phone = ket.Kettering.Phone
+                        });
+                    }
+                    foreach (var com in user.CompanyUser)
+                    {
+                        companies.Add(new CompanyDTO
+                        {
+                            CompanyId = com.Company.CompanyId,
+                            Name = com.Company.Name,
+                            Description = com.Company.Description,
+                            Address = com.Company.Address,
+                            Phone = com.Company.Phone
+                        });
+                    }
+                }
+            }
+            return companies;
         }
     }
 }

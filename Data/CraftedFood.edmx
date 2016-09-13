@@ -32,6 +32,7 @@
           <Property Name="KetteringId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
         </EntityType>
@@ -410,6 +411,7 @@
           <Property Name="KetteringId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="KetteringUser" Relationship="Self.FK_KetteringUser_Kettering" FromRole="Kettering" ToRole="KetteringUser" />
@@ -806,6 +808,7 @@
           <EntitySetMapping Name="Kettering">
             <EntityTypeMapping TypeName="CraftedFoodModel.Kettering">
               <MappingFragment StoreEntitySet="Kettering">
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="KetteringId" ColumnName="KetteringId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

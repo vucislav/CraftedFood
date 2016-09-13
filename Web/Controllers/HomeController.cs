@@ -1,4 +1,5 @@
-﻿using Core.Logic;
+﻿using Core.DTOs;
+using Core.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using Web.Models;
 namespace Web.Controllers
 {
     [AuthorizeUser]
-    public class HomeController : Controller
+    public class HomeController : MyBaseController
     {
         [AllowAnonymous]
         public ActionResult Login()
@@ -65,9 +66,35 @@ namespace Web.Controllers
             return RedirectToAction("Login");
         }
 
+        [AllowAnonymous]
+        public ActionResult SignUp()
+        {
+            return View(new SignUpModel());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult SignUp(SignUpModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserLogic.CreateUser(new SignUpDTO
+                {
+                    FirstName = model.FirstName,
+                    MiddleName = model.MiddleName,
+                    LastName = model.LastName,
+                    Phone = model.Phone,
+                    Username = model.Username,
+                    Email = model.Email,
+                    Password = model.Password
+                });
+            }
+            return RedirectToAction("Login");
+        }
+
         public ActionResult Index()
         {
-            return View();
+            return View(CompanyModel.GetCompaniesForUser((int)Session["UserId"]));
         }
     }
 }
