@@ -96,5 +96,10 @@ namespace Web.Controllers
         {
             return View(CompanyModel.GetCompaniesForUser((int)Session["UserId"]));
         }
+
+        public ActionResult Company(int companyId)
+        {
+            return View(new CompanyModel(companyId));
+        }
     }
 }

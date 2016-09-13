@@ -14,6 +14,15 @@ namespace Web.Models
         public string Address { get; set; }
         public string Phone { get; set; }
 
+        public CompanyModel()
+        {
+
+        }
+
+        public CompanyModel(int companyId)
+        {
+
+        }
 
         public static IEnumerable<CompanyModel> GetCompaniesForUser(int UserId)
         {
