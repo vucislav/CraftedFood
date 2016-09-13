@@ -253,6 +253,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Company.cshtml" />
     <Content Include="Views\Home\Kettering.cshtml" />
+    <Content Include="Views\Home\_CreateCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
