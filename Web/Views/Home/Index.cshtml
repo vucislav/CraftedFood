@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Your companies</h2> <a href="#" data-toggle="modal" data-target="#create-company-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
 
 @if (Model.Any())
 {
@@ -28,7 +28,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr id="@item.CompanyId" class="table-row">
+                <tr id="@item.CompanyId" class="table-row @if (item.IsKettering) { <text>kettering</text> } ">
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
@@ -49,4 +49,30 @@
 else
 {
     <div>You don't belong to any companies yet</div>
+}
+
+
+<div id="create-company-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Custom/index.js")
 }

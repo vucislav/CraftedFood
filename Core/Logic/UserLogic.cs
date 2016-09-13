@@ -146,7 +146,8 @@ namespace Core.Logic
                             Name = ket.Kettering.Name,
                             Description = ket.Kettering.Description,
                             Address = ket.Kettering.Address,
-                            Phone = ket.Kettering.Phone
+                            Phone = ket.Kettering.Phone,
+                            IsKettering = true
                         });
                     }
                     foreach (var com in user.CompanyUser)
@@ -157,7 +158,8 @@ namespace Core.Logic
                             Name = com.Company.Name,
                             Description = com.Company.Description,
                             Address = com.Company.Address,
-                            Phone = com.Company.Phone
+                            Phone = com.Company.Phone,
+                            IsKettering = false
                         });
                     }
                 }

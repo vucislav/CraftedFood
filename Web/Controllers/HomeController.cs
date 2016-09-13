@@ -98,14 +98,16 @@ namespace Web.Controllers
         }
 
 
-        public ActionResult Company(int companyId)
+        public ActionResult Company(int id)
         {
-            return View(new CompanyModel(companyId));
+            return View(new CompanyModel(id));
         }
 
-        /*public ActionResult Company(int companyId)
+
+        // URADITI: da moz se udje u keterin kompaniju
+        public ActionResult Kettering(int id)
         {
-            return View(new CompanyModel(companyId));
-        }*/
+            return View();
+        }
     }
 }
