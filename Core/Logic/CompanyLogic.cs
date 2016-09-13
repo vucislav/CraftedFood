@@ -77,6 +77,22 @@ namespace Core.Logic
             }
         }
 
+        public static CompanyDTO GetCompanyById(int companyId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                var com = GetCompanyById(companyId, dc);
+                return new CompanyDTO
+                {
+                    CompanyId = com.CompanyId,
+                    Name = com.Name,
+                    Description = com.Description,
+                    Address = com.Address,
+                    Phone = com.Phone
+                };
+            }
+        }
+
         private static Company GetCompanyById(int companyId, CraftedFoodEntities dc)
         {
             return (from c in dc.Company

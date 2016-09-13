@@ -13,7 +13,23 @@ namespace Web.Models
         public string Description { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
+        public bool IsKettering { get; set; }
 
+        public CompanyModel()
+        {
+
+        }
+
+        public CompanyModel(int companyId)
+        {
+            var com = CompanyLogic.GetCompanyById(companyId);
+            CompanyId = com.CompanyId;
+            Name = com.Name;
+            Description = com.Description;
+            Address = com.Address;
+            Phone = com.Phone;
+            IsKettering = com.IsKettering;
+        }
 
         public static IEnumerable<CompanyModel> GetCompaniesForUser(int UserId)
         {
@@ -23,7 +39,8 @@ namespace Web.Models
                 Name = x.Name,
                 Address = x.Address,
                 Description = x.Description,
-                Phone = x.Phone
+                Phone = x.Phone,
+                IsKettering = x.IsKettering
             });
         }
     }

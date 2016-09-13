@@ -1,3 +1,6 @@
 ﻿$(".table-row").click(function () {
-    window.location.replace("/Home/Company/" + $(this).attr('id'));
+    var type;
+    if ($(this).hasClass("kettering")) type = "Kettering";
+    else type = "Company";
+    window.location.href = "/Home/" + type + "/" + $(this).attr('id');
 });

@@ -97,9 +97,23 @@ namespace Web.Controllers
             return View(CompanyModel.GetCompaniesForUser((int)Session["UserId"]));
         }
 
-        /*public ActionResult Company(int companyId)
+
+        public ActionResult Company(int id)
         {
-            return View(new CompanyModel(companyId));
-        }*/
+            return View(new CompanyModel(id));
+        }
+
+
+        // URADITI: da moz se udje u keterin kompaniju
+        public ActionResult Kettering(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateCompany()
+        {
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -50,8 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\CompanyDTO.cs" />
+    <Compile Include="DTOs\CompanyUserDTO.cs" />
+    <Compile Include="DTOs\KetteringDTO.cs" />
     <Compile Include="DTOs\SignUpDTO.cs" />
+    <Compile Include="Logic\CompanyLogic.cs" />
     <Compile Include="Logic\UserLogic.cs" />
+    <Compile Include="Logic\ValidationLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
