@@ -109,5 +109,11 @@ namespace Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult CreateCompany()
+        {
+            return RedirectToAction("Index");
+        }
     }
 }
