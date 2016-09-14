@@ -105,5 +105,20 @@ namespace Core.Logic
                     where c.KetteringId == ketteringId && c.DeleteDate == null
                     select c).FirstOrDefault();
         }
+		
+		 public static IEnumerable<MenuDTO> GetMenusForKettering(int ketteringId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from m in dc.Menu
+                        where m.KetteringId == ketteringId && m.DeleteDate == null
+                        select new MenuDTO
+                        {
+                            MenuId = m.MenuId,
+                            KetteringId = m.KetteringId,
+                            Name = m.Name
+                        }).ToList();
+            }
+        }
     }
 }

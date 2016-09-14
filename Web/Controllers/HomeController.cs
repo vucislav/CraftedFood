@@ -2,6 +2,7 @@
 using Core.Logic;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -168,6 +169,81 @@ namespace Web.Controllers
         {
             UserLogic.ChangePassword(user.UserId, user.OldPassword, user.Password);
             return RedirectToAction("Index");
+        }
+		
+		        [AllowAnonymous]
+        public ActionResult AddMenu()
+        {
+            return View(new MenuModel());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult AddMenu(MenuModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                MenuLogic.Create(new MenuDTO
+                {
+                    KetteringId = model.KetteringId,
+                    Name = model.Name
+                });
+            }
+            return RedirectToAction("Menus");
+        }
+
+        [AllowAnonymous]
+        public ActionResult Menus(int id)
+        {
+            return View(MenuModel.GetMenusForKettering(id));
+        }
+
+        [AllowAnonymous]
+        public ActionResult Menu(int id)
+        {
+            return View(new MenuModel(id));
+        }
+
+        [AllowAnonymous]
+        public ActionResult AddMeal()
+        {
+            return View(new MealModel());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult AddMeal(MealModel model, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                MealLogic.Create(new MealDTO
+                {
+                    MenuId = id,
+                    Title = model.Title,
+                    Description = model.Description,
+                    Image = ConvertToByteArray(model.Image),
+                    Quantity = model.Quantity,
+                    UnitOfMeasureId = model.UnitOfMeasureId,
+                    MealCategoryId = model.MealCategoryId
+                });
+            }
+            return RedirectToAction("Menu/" + id);
+        }
+
+        private byte[] ConvertToByteArray(HttpPostedFileBase file)
+        {
+            byte[] data;
+            using (Stream inputStream = file.InputStream)
+            {
+                MemoryStream memoryStream = inputStream as MemoryStream;
+                if (memoryStream == null)
+                {
+                    memoryStream = new MemoryStream();
+                    inputStream.CopyTo(memoryStream);
+                }
+                data = memoryStream.ToArray();
+            }
+            return data;
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿@model Web.Models.MenuModel
+
+@{
+    ViewBag.Title = "Menu";
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+
+@foreach (var item in Model.Meals)
+{
+    <div>
+        @Html.DisplayFor(modelItem => item.Title)
+    </div>
+
+    <div>
+        @Html.DisplayFor(modelItem => item.Description)
+    </div>
+}
+
+<button class="addMeal" id=@Html.DisplayFor(model => model.MenuId)>Add Meal</button>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Custom/addMeal.js")
+}
+
+
+

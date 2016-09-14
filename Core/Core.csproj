@@ -61,12 +61,13 @@
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Enumerations\MealCategoryEnum.cs" />
     <Compile Include="Enumerations\RoleEnum.cs" />
-    <Compile Include="Enumerations\UnitOfMeasure.cs" />
+    <Compile Include="Enumerations\UnitOfMeasureEnum.cs" />
     <Compile Include="Logic\CompanyLogic.cs" />
     <Compile Include="Logic\CompanyUserLogic.cs" />
     <Compile Include="Logic\KetteringLogic.cs" />
     <Compile Include="Logic\KetteringUserLogic.cs" />
     <Compile Include="Logic\MealLogic.cs" />
+    <Compile Include="Logic\MenuLogic.cs" />
     <Compile Include="Logic\OrderLogic.cs" />
     <Compile Include="Logic\RatingLogic.cs" />
     <Compile Include="Logic\UserLogic.cs" />

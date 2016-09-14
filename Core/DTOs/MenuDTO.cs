@@ -11,5 +11,6 @@ namespace Core.DTOs
         public int MenuId { get; set; }
         public int KetteringId { get; set; }
         public string Name { get; set; }
+		public IEnumerable<MealDTO> Meals { get; set; }
     }
 }

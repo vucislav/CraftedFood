@@ -19,7 +19,7 @@ namespace Core.Logic
                 Title = meal.Title,
                 Description = meal.Description,
                 Image = meal.Image,
-                Quantity = meal.Quantitiy,
+                Quantity = meal.Quantity,
                 UnitOfMeasureId = meal.UnitOfMeasureId,
                 MealCategoryId = meal.MealCategoryId
             };
@@ -48,7 +48,7 @@ namespace Core.Logic
                     m.Title = meal.Title;
                     m.Description = meal.Description;
                     m.Image = meal.Image;
-                    m.Quantity = meal.Quantitiy;
+                    m.Quantity = meal.Quantity;
                     m.UnitOfMeasureId = meal.UnitOfMeasureId;
                     m.MealCategoryId = meal.MealCategoryId;
                 }

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Web.Models.MenuModel>
+
+@{
+    ViewBag.Title = "Menus";
+}
+
+<h2>Menus</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-row" id="@item.MenuId">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Custom/menus.js")
+}

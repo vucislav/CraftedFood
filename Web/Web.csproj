@@ -203,6 +203,8 @@
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\KetteringModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MealModel.cs" />
+    <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PasswordResetModel.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\SignUpModel.cs" />

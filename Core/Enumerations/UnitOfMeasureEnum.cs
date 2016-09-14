@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Enumerations
 {
-    public enum UnitOfMeasure
+    public enum UnitOfMeasureEnum
     {
         Grams = 1,
         Mililitres,
