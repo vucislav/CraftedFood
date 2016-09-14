@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="CraftedFoodModel.Role" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CraftedFoodModel.UnitOfMeasure" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CraftedFoodModel.User" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CraftedFoodModel.UserRole" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="CraftedFoodModel.FK_CompanyUser_Company" ManuallyRouted="false" />
         <AssociationConnector Association="CraftedFoodModel.FK_CompanyUser_User" ManuallyRouted="false" />
         <AssociationConnector Association="CraftedFoodModel.FK_Order_CompanyUser" ManuallyRouted="false" />
@@ -30,8 +29,7 @@
         <AssociationConnector Association="CraftedFoodModel.FK_Meal_UnitOfMeasure" ManuallyRouted="false" />
         <AssociationConnector Association="CraftedFoodModel.FK_Order_Meal" ManuallyRouted="false" />
         <AssociationConnector Association="CraftedFoodModel.FK_Rating_Meal" ManuallyRouted="false" />
-        <AssociationConnector Association="CraftedFoodModel.FK_UserRole_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="CraftedFoodModel.FK_UserRole_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CraftedFoodModel.FK_KetteringUser_UserRole" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

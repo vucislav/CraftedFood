@@ -17,13 +17,13 @@ namespace Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
         {
-            this.UserRole = new HashSet<UserRole>();
+            this.KetteringUser = new HashSet<KetteringUser>();
         }
     
         public int RoleId { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRole> UserRole { get; set; }
+        public virtual ICollection<KetteringUser> KetteringUser { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core.DTOs;
+using Core.Enumerations;
 using Data;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,17 @@ namespace Core.Logic
 {
     public static class KetteringUserLogic
     {
-        public static void Create(KetteringUserDTO ketteringUser)
+        public static void Create(KetteringUserDTO ketteringUser, RoleEnum role, CraftedFoodEntities context = null)
         {
             KetteringUser ketUser = new KetteringUser
             {
                 KetteringUserId = ketteringUser.KetteringUserId,
                 UserId = ketteringUser.UserId,
-                KetteringId = ketteringUser.KetteringId
+                KetteringId = ketteringUser.KetteringId,
+                RoleId = (int)role 
             };
-            using (var dc = new CraftedFoodEntities())
+
+            using (var dc = context ?? new CraftedFoodEntities())
             {
                 dc.KetteringUser.Add(ketUser);
                 try

@@ -103,9 +103,6 @@
     <Compile Include="User.cs">
       <DependentUpon>CraftedFood.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserRole.cs">
-      <DependentUpon>CraftedFood.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="CraftedFood.edmx">

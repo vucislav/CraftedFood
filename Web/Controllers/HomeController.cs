@@ -34,6 +34,12 @@ namespace Web.Controllers
             return RedirectToAction("Login");
         }
 
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
+
         [AllowAnonymous]
         public ActionResult ResetPassword()
         {
@@ -78,7 +84,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserLogic.CreateUser(new SignUpDTO
+                UserLogic.CreateUser(new UserDTO
                 {
                     FirstName = model.FirstName,
                     MiddleName = model.MiddleName,
@@ -107,12 +113,60 @@ namespace Web.Controllers
         // URADITI: da moz se udje u keterin kompaniju
         public ActionResult Kettering(int id)
         {
-            return View();
+            return View(new KetteringModel(id));
         }
 
         [HttpPost]
-        public ActionResult CreateCompany()
+        public ActionResult CreateCompany(CompanyModel model)
         {
+            if (model.IsKettering)
+            {
+                KetteringLogic.Create(new KetteringDTO
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Address = model.Address,
+                    Phone = model.Phone
+                }, (int)Session["userId"]);
+            }
+            else
+            {
+                CompanyLogic.Create(new CompanyDTO
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Address = model.Address,
+                    Phone = model.Phone
+                }, (int)Session["userId"]);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EditProfile()
+        {
+            return View(new UserModel((int)Session["userId"]));
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(UserModel user)
+        {
+            UserLogic.EditProfile(new UserDTO
+            {
+                UserId = user.UserId,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Username = user.Username,
+                Phone = user.Phone
+            });
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(UserModel user)
+        {
+            UserLogic.ChangePassword(user.UserId, user.OldPassword, user.Password);
             return RedirectToAction("Index");
         }
     }

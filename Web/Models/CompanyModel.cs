@@ -14,6 +14,7 @@ namespace Web.Models
         public string Address { get; set; }
         public string Phone { get; set; }
         public bool IsKettering { get; set; }
+        public IEnumerable<UserModel> Members { get; set; }
 
         public CompanyModel()
         {

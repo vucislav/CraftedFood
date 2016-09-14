@@ -58,8 +58,7 @@
     <Compile Include="DTOs\MenuDTO.cs" />
     <Compile Include="DTOs\OrderDTO.cs" />
     <Compile Include="DTOs\RatingDTO.cs" />
-    <Compile Include="DTOs\SignUpDTO.cs" />
-    <Compile Include="DTOs\UserRoleDTO.cs" />
+    <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Enumerations\MealCategoryEnum.cs" />
     <Compile Include="Enumerations\RoleEnum.cs" />
     <Compile Include="Enumerations\UnitOfMeasure.cs" />
@@ -71,7 +70,6 @@
     <Compile Include="Logic\OrderLogic.cs" />
     <Compile Include="Logic\RatingLogic.cs" />
     <Compile Include="Logic\UserLogic.cs" />
-    <Compile Include="Logic\UserRoleLogic.cs" />
     <Compile Include="Logic\ValidationLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

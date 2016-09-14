@@ -9,7 +9,6 @@ namespace Core.Enumerations
     public enum RoleEnum
     {
         Admin = 1,
-        User,
-        Client
+        User
     }
 }

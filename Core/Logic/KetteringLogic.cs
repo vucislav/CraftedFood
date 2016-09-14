@@ -10,7 +10,7 @@ namespace Core.Logic
 {
     public static class KetteringLogic
     {
-        public static void Create(KetteringDTO kettering)
+        public static void Create(KetteringDTO kettering, int userId)
         {
             Kettering ket = new Kettering
             {
@@ -26,6 +26,12 @@ namespace Core.Logic
                 try
                 {
                     dc.SaveChanges();
+
+                    KetteringUserLogic.Create(new KetteringUserDTO
+                    {
+                        KetteringId = ket.KetteringId,
+                        UserId = userId
+                    }, Enumerations.RoleEnum.Admin, dc);
                 }
                 catch (Exception e)
                 {
@@ -74,6 +80,22 @@ namespace Core.Logic
                 {
                     throw e;
                 }
+            }
+        }
+
+        public static KetteringDTO GetKetteringById(int ketteringId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                var ket = GetKetteringById(ketteringId, dc);
+                return new KetteringDTO
+                {
+                    KetteringId = ket.KetteringId,
+                    Name = ket.Name,
+                    Description = ket.Description,
+                    Address = ket.Address,
+                    Phone = ket.Phone
+                };
             }
         }
 

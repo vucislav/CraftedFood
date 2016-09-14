@@ -43,6 +43,7 @@
           <Property Name="KetteringUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="KetteringId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Meal">
@@ -127,15 +128,6 @@
           <Property Name="PasswordResetGuid" Type="uniqueidentifier" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
         </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="UserRoleId" />
-          </Key>
-          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="DeleteDate" Type="datetime2" Precision="7" />
-        </EntityType>
         <Association Name="FK_CompanyUser_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
@@ -181,6 +173,18 @@
             </Principal>
             <Dependent Role="KetteringUser">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KetteringUser_UserRole">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="KetteringUser" Type="Self.KetteringUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="KetteringUser">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -280,30 +284,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserRole_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CraftedFoodModelStoreContainer">
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompanyUser" EntityType="Self.CompanyUser" Schema="dbo" store:Type="Tables" />
@@ -317,7 +297,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnitOfMeasure" EntityType="Self.UnitOfMeasure" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CompanyUser_Company" Association="Self.FK_CompanyUser_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="CompanyUser" EntitySet="CompanyUser" />
@@ -332,6 +311,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_KetteringUser_User" Association="Self.FK_KetteringUser_User">
             <End Role="User" EntitySet="User" />
+            <End Role="KetteringUser" EntitySet="KetteringUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KetteringUser_UserRole" Association="Self.FK_KetteringUser_UserRole">
+            <End Role="Role" EntitySet="Role" />
             <End Role="KetteringUser" EntitySet="KetteringUser" />
           </AssociationSet>
           <AssociationSet Name="FK_Meal_MealCategory" Association="Self.FK_Meal_MealCategory">
@@ -365,14 +348,6 @@
           <AssociationSet Name="FK_Rating_Meal" Association="Self.FK_Rating_Meal">
             <End Role="Meal" EntitySet="Meal" />
             <End Role="Rating" EntitySet="Rating" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -427,6 +402,8 @@
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Kettering" Relationship="Self.FK_KetteringUser_Kettering" FromRole="KetteringUser" ToRole="Kettering" />
           <NavigationProperty Name="User" Relationship="Self.FK_KetteringUser_User" FromRole="KetteringUser" ToRole="User" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="CraftedFoodModel.FK_KetteringUser_UserRole" FromRole="KetteringUser" ToRole="Role" />
         </EntityType>
         <EntityType Name="Meal">
           <Key>
@@ -499,7 +476,7 @@
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
+          <NavigationProperty Name="KetteringUser" Relationship="CraftedFoodModel.FK_KetteringUser_UserRole" FromRole="Role" ToRole="KetteringUser" />
         </EntityType>
         <EntityType Name="UnitOfMeasure">
           <Key>
@@ -525,18 +502,6 @@
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="CompanyUser" Relationship="Self.FK_CompanyUser_User" FromRole="User" ToRole="CompanyUser" />
           <NavigationProperty Name="KetteringUser" Relationship="Self.FK_KetteringUser_User" FromRole="User" ToRole="KetteringUser" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="UserRoleId" />
-          </Key>
-          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="DeleteDate" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
         </EntityType>
         <Association Name="FK_CompanyUser_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
@@ -682,30 +647,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserRole_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CraftedFoodEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Company" EntityType="Self.Company" />
           <EntitySet Name="CompanyUser" EntityType="Self.CompanyUser" />
@@ -719,7 +660,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="UnitOfMeasure" EntityType="Self.UnitOfMeasure" />
           <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" />
           <AssociationSet Name="FK_CompanyUser_Company" Association="Self.FK_CompanyUser_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="CompanyUser" EntitySet="CompanyUser" />
@@ -768,15 +708,23 @@
             <End Role="Meal" EntitySet="Meal" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+          <AssociationSet Name="FK_KetteringUser_UserRole" Association="CraftedFoodModel.FK_KetteringUser_UserRole">
             <End Role="Role" EntitySet="Role" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="KetteringUser" EntitySet="KetteringUser" />
           </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_KetteringUser_UserRole">
+          <End Type="CraftedFoodModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="CraftedFoodModel.KetteringUser" Role="KetteringUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="KetteringUser">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -820,6 +768,7 @@
           <EntitySetMapping Name="KetteringUser">
             <EntityTypeMapping TypeName="CraftedFoodModel.KetteringUser">
               <MappingFragment StoreEntitySet="KetteringUser">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="KetteringUserId" ColumnName="KetteringUserId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="KetteringId" ColumnName="KetteringId" />
@@ -913,16 +862,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRole">
-            <EntityTypeMapping TypeName="CraftedFoodModel.UserRole">
-              <MappingFragment StoreEntitySet="UserRole">
-                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
               </MappingFragment>
             </EntityTypeMapping>

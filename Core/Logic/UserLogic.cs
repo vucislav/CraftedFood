@@ -99,7 +99,7 @@ namespace Core.Logic
             }
         }
 
-        public static void CreateUser(SignUpDTO user)
+        public static void CreateUser(UserDTO user)
         {
             User u = new User()
             {
@@ -165,6 +165,76 @@ namespace Core.Logic
                 }
             }
             return companies;
+        }
+
+        public static UserDTO GetUserById(int userId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from u in dc.User
+                        where u.UserId == userId && u.DeleteDate == null
+                        select new UserDTO
+                        {
+                            FirstName = u.FirstName,
+                            MiddleName = u.MiddleName,
+                            LastName = u.LastName,
+                            Email = u.Email,
+                            Username = u.Username,
+                            Phone = u.Phone
+                        }).FirstOrDefault();
+            }
+        }
+
+        public static void EditProfile(UserDTO newUser)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                var user = (from u in dc.User
+                         where u.UserId == newUser.UserId
+                         select u).FirstOrDefault();
+
+                if (user != null)
+                {
+                    user.FirstName = newUser.FirstName;
+                    user.MiddleName = newUser.MiddleName;
+                    user.LastName = newUser.LastName;
+                    user.Email = newUser.Email;
+                    user.Username = newUser.Username;
+                    user.Phone = newUser.Phone;
+                }
+
+                try
+                {
+                    dc.SaveChanges();
+                } 
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
+        public static void ChangePassword(int userId, string oldPassword, string newPassword)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                var user = (from u in dc.User
+                            where u.UserId == userId && u.Password == oldPassword
+                            select u).FirstOrDefault();
+                if (user != null)
+                {
+                    user.Password = newPassword;
+                }
+
+                try
+                {
+                    dc.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    throw e;
+                }       
+            }
         }
     }
 }

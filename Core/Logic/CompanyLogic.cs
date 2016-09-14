@@ -10,7 +10,7 @@ namespace Core.Logic
 {
     public static class CompanyLogic
     {
-        public static void Create(CompanyDTO company)
+        public static void Create(CompanyDTO company, int userId)
         {
             Company com = new Company
             {

@@ -37,6 +37,5 @@ namespace Data
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<UnitOfMeasure> UnitOfMeasure { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserRole> UserRole { get; set; }
     }
 }
