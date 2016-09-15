@@ -25,7 +25,6 @@ namespace Core.Logic
         {
             KetteringUser ketUser = new KetteringUser
             {
-                KetteringUserId = ketteringUser.KetteringUserId,
                 UserId = ketteringUser.UserId,
                 KetteringId = ketteringUser.KetteringId,
                 RoleId = (int)role 

@@ -59,6 +59,7 @@
     <Compile Include="DTOs\OrderDTO.cs" />
     <Compile Include="DTOs\RatingDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
+    <Compile Include="DTOs\UserRoleDTO.cs" />
     <Compile Include="Enumerations\MealCategoryEnum.cs" />
     <Compile Include="Enumerations\RoleEnum.cs" />
     <Compile Include="Enumerations\UnitOfMeasureEnum.cs" />

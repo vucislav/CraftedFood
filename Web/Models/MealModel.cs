@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Core.Enumerations;
+using Core.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace Web.Models
 {
@@ -13,10 +14,13 @@ namespace Web.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public HttpPostedFileBase Image { get; set; }
-        public string DisplayImage { get; set; }
+		public string DisplayImage { get; set; }
         public int Quantity { get; set; }
         public string UnitOfMeasure { get; set; }
         public string MealCategory { get; set; }
+
+        public UnitOfMeasureEnum UnitOfMeasures { get; set; }
+        public MealCategoryEnum MealCategories { get; set; }
 
         public int UnitOfMeasureId { get; set; }
         public int MealCategoryId { get; set; }
@@ -26,9 +30,16 @@ namespace Web.Models
 
         }
 
-        public MealModel(int menuId)
+        public MealModel (int id)
         {
-            MenuId = menuId;
+            var m = MealLogic.GetMealById(id);
+            MenuId = m.MenuId;
+            Title = m.Title;
+            Description = m.Description;
+            //Image = m.Image;
+            Quantity = m.Quantity;
+            UnitOfMeasureId = m.UnitOfMeasureId;
+            MealCategoryId = m.MealCategoryId;
         }
     }
 }

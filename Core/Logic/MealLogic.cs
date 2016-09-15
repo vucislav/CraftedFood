@@ -83,11 +83,46 @@ namespace Core.Logic
             }
         }
 
+        public static MealDTO GetMealById(int mealId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                var m = GetMealById(mealId, dc);
+                return new MealDTO
+                {
+                    MenuId = m.MenuId,
+                    Title = m.Title,
+                    Description = m.Description,
+                    Image = m.Image,
+                    Quantity = m.Quantity,
+                    UnitOfMeasureId = m.UnitOfMeasureId,
+                    MealCategoryId = m.MealCategoryId
+                };
+            }
+        }
+
         private static Meal GetMealById(int mealId, CraftedFoodEntities dc)
         {
             return (from c in dc.Meal
                     where c.MealId == mealId && c.DeleteDate == null
                     select c).FirstOrDefault();
+        }
+
+        public static IEnumerable<RatingDTO> GetRatingsForMeal(int mealId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from m in dc.Rating
+                        where m.MealId == mealId && m.DeleteDate == null
+                        select new RatingDTO
+                        {
+                            RatingId = m.RatingId,
+                            MealId = m.MealId,
+                            CompanyUserId = m.CompanyUserId,
+                            Comment = m.Comment,
+                            Mark = m.Mark,
+                        }).ToList();
+            }
         }
     }
 }

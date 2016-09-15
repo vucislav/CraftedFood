@@ -202,10 +202,12 @@
     </Compile>
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\KetteringModel.cs" />
+    <Compile Include="Models\KetteringUserModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MealModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PasswordResetModel.cs" />
+    <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\SignUpModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -275,6 +277,9 @@
     <Content Include="Views\Home\_AddMenu.cshtml" />
     <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Home\_Menus.cshtml" />
+    <Content Include="Views\Home\AddRating.cshtml" />
+    <Content Include="Views\Home\Meal.cshtml" />
+    <Content Include="Views\Home\Ratings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

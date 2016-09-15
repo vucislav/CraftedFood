@@ -290,5 +290,34 @@ namespace Web.Controllers
             }
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
+		
+		[AllowAnonymous]
+        public ActionResult Ratings(int id)
+        {
+            return View(RatingModel.GetRatingsForMeal(id));
+        } 
+
+        [AllowAnonymous]
+        public ActionResult AddRating(int id)
+        {
+            return View(new RatingModel(id, 1));
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult AddRating(RatingModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                RatingLogic.Create(new RatingDTO
+                {
+                    MealId = model.MealId,
+                    Mark = model.Mark,
+                    Comment = model.Comment,
+                    CompanyUserId = model.CompanyUserId
+                });
+            }
+            return RedirectToAction("Ratings/" + model.MealId);
+        }
     }
 }

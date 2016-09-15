@@ -77,6 +77,22 @@ namespace Core.Logic
             }
         }
 
+        public static RatingDTO GetRatingById(int ratingId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                var r = GetRatingById(ratingId, dc);
+                return new RatingDTO
+                {
+                    RatingId = r.RatingId,
+                    MealId = r.MealId,
+                    CompanyUserId = r.CompanyUserId,
+                    Comment = r.Comment,
+                    Mark = r.Mark,
+                };
+            }
+        }
+
         private static Rating GetRatingById(int ratingId, CraftedFoodEntities dc)
         {
             return (from c in dc.Rating
