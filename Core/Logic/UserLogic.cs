@@ -236,5 +236,15 @@ namespace Core.Logic
                 }       
             }
         }
+
+        public static int? GetIdByUsername(string username)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from u in dc.User
+                        where u.Username == username
+                        select u.UserId).FirstOrDefault();
+            }
+        }
     }
 }

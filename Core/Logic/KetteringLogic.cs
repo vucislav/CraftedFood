@@ -27,11 +27,11 @@ namespace Core.Logic
                 {
                     dc.SaveChanges();
 
-                    KetteringUserLogic.Create(new KetteringUserDTO
+                    KetteringUserLogic.Create(dc, new KetteringUserDTO
                     {
                         KetteringId = ket.KetteringId,
                         UserId = userId
-                    }, Enumerations.RoleEnum.Admin, dc);
+                    }, Enumerations.RoleEnum.Admin);
                 }
                 catch (Exception e)
                 {

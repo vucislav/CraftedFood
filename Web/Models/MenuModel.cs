@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Web.Models
 {
@@ -27,9 +28,19 @@ namespace Web.Models
             Name = menu.Name;
             Meals = menu.Meals.Select(x => new MealModel()
             {
+                MealId = x.MealId,
                 Title = x.Title,
+                Description = x.Description,
+                Quantity = x.Quantity,
+                UnitOfMeasure = ((UnitOfMeasureEnum)x.UnitOfMeasureId).ToString(),
                 MealCategory = ((MealCategoryEnum)x.MealCategoryId).ToString(),
+                DisplayImage = x.Image
             });
+        }
+
+        public MenuModel(int? ketteringId)
+        {
+            KetteringId = (int)ketteringId;
         }
 
         public static IEnumerable<MenuModel> GetMenusForKettering(int ketteringId)
@@ -38,6 +49,7 @@ namespace Web.Models
             {
                 MenuId = x.MenuId,
                 Name = x.Name,
+                
             });
         }
     }

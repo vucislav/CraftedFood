@@ -3,11 +3,32 @@
 @{
     ViewBag.Title = "Kettering";
 }
+@using Web.Models
 
 <h2>Kettering</h2>
 
 <div>
-    <h4>KetteringModel</h4>
+    <h4>KetteringModel</h4> <a href="#" data-toggle="modal" data-target="#add-menu-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
+
+    <form action="/Home/AddKetteringUser" method="post">
+        <div class="form-horizontal">
+            <input type="hidden" name="KetteringId" value="@Model.KetteringId" />
+
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <div class="col-md-10">
+                    <input type="text" name="Username" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+    
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,6 +62,32 @@
         <dd>
             @Html.DisplayFor(model => model.Phone)
         </dd>
-
     </dl>
+
+    @Html.Partial("_Menus", MenuModel.GetMenusForKettering(Model.KetteringId))
 </div>
+
+<div id="add-menu-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Menu</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("_AddMenu", new MenuModel((int?)Model.KetteringId))
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Custom/menus.js")
+}

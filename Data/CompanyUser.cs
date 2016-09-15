@@ -24,9 +24,11 @@ namespace Data
         public int CompanyUserId { get; set; }
         public int UserId { get; set; }
         public int CompanyId { get; set; }
+        public int RoleId { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
     
         public virtual Company Company { get; set; }
+        public virtual Role Role { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }

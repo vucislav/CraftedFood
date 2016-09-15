@@ -85,16 +85,16 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserLogic.CreateUser(new UserDTO
-                {
-                    FirstName = model.FirstName,
-                    MiddleName = model.MiddleName,
-                    LastName = model.LastName,
-                    Phone = model.Phone,
-                    Username = model.Username,
-                    Email = model.Email,
-                    Password = model.Password
-                });
+                //UserLogic.CreateUser(new UserDTO
+                //{
+                //    FirstName = model.FirstName,
+                //    MiddleName = model.MiddleName,
+                //    LastName = model.LastName,
+                //    Phone = model.Phone,
+                //    Username = model.Username,
+                //    Email = model.Email,
+                //    Password = model.Password
+                //});  URADITI: ODKOMENTARISATI
             }
             return RedirectToAction("Login");
         }
@@ -171,7 +171,7 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 		
-		        [AllowAnonymous]
+        [AllowAnonymous]
         public ActionResult AddMenu()
         {
             return View(new MenuModel());
@@ -189,7 +189,7 @@ namespace Web.Controllers
                     Name = model.Name
                 });
             }
-            return RedirectToAction("Menus");
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
 
         [AllowAnonymous]
@@ -212,22 +212,29 @@ namespace Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult AddMeal(MealModel model, int id)
+        public ActionResult AddMeal(MealModel model)
         {
             if (ModelState.IsValid)
             {
+                string fileName = null;
+                if (model.Image != null && model.Image.ContentLength > 0)
+                {
+                    fileName = model.Image.FileName;
+                    var path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                    model.Image.SaveAs(path);
+                }
                 MealLogic.Create(new MealDTO
                 {
-                    MenuId = id,
+                    MenuId = model.MenuId,
                     Title = model.Title,
                     Description = model.Description,
-                    Image = ConvertToByteArray(model.Image),
+                    Image = fileName,
                     Quantity = model.Quantity,
                     UnitOfMeasureId = model.UnitOfMeasureId,
                     MealCategoryId = model.MealCategoryId
                 });
             }
-            return RedirectToAction("Menu/" + id);
+            return RedirectToAction("Menu", new { id = model.MenuId });
         }
 
         private byte[] ConvertToByteArray(HttpPostedFileBase file)
@@ -244,6 +251,44 @@ namespace Web.Controllers
                 data = memoryStream.ToArray();
             }
             return data;
+        }
+        
+        [AllowAnonymous]
+        public ActionResult getImg(string img)
+        {
+            return File(Server.MapPath("~/App_Data/" + img), "image/png");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult AddKetteringUser(int ketteringId, string username)
+        {
+            int? userId = UserLogic.GetIdByUsername(username);
+            if (userId != null)
+            {
+                KetteringUserLogic.Create(new KetteringUserDTO
+                {
+                    KetteringId = ketteringId,
+                    UserId = (int)userId
+                }, Core.Enumerations.RoleEnum.User);
+            }
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult AddCompanyUser(int companyId, string username)
+        {
+            int? userId = UserLogic.GetIdByUsername(username);
+            if (userId != null)
+            {
+                CompanyUserLogic.Create(new CompanyUserDTO
+                {
+                    CompanyId = companyId,
+                    UserId = (int)userId
+                }, Core.Enumerations.RoleEnum.User);
+            }
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
     }
 }

@@ -17,8 +17,8 @@ namespace Data
         public int KetteringUserId { get; set; }
         public int UserId { get; set; }
         public int KetteringId { get; set; }
-        public Nullable<System.DateTime> DeleteDate { get; set; }
         public int RoleId { get; set; }
+        public Nullable<System.DateTime> DeleteDate { get; set; }
     
         public virtual Kettering Kettering { get; set; }
         public virtual User User { get; set; }

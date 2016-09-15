@@ -271,9 +271,14 @@
     <Content Include="Views\Home\_CreateCompany.cshtml" />
     <Content Include="Views\Home\Kettering.cshtml" />
     <Content Include="Views\Home\_EditProfile.cshtml" />
+    <Content Include="Views\Home\_AddMeal.cshtml" />
+    <Content Include="Views\Home\_AddMenu.cshtml" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Home\_Menus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PlugIns\x-editable\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

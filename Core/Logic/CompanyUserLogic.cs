@@ -1,4 +1,5 @@
 ﻿using Core.DTOs;
+using Core.Enumerations;
 using Data;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,14 @@ namespace Core.Logic
 {
     public static class CompanyUserLogic
     {
-        public static void Create(CompanyUserDTO companyUser)
+        public static void Create(CompanyUserDTO companyUser, RoleEnum role)
         {
             CompanyUser comUser = new CompanyUser
             {
                 CompanyUserId = companyUser.CompanyUserId,
                 UserId = companyUser.UserId,
-                CompanyId = companyUser.CompanyId
+                CompanyId = companyUser.CompanyId,
+                RoleId = (int)role
             };
             using (var dc = new CraftedFoodEntities())
             {

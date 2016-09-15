@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CraftedFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CraftedFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="CompanyId" />
@@ -23,6 +23,7 @@
           <Property Name="CompanyUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Kettering">
@@ -54,7 +55,7 @@
           <Property Name="MenuId" Type="int" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
-          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="Image" Type="varchar" MaxLength="50" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="UnitOfMeasureId" Type="int" Nullable="false" />
           <Property Name="MealCategoryId" Type="int" Nullable="false" />
@@ -137,6 +138,18 @@
             </Principal>
             <Dependent Role="CompanyUser">
               <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUser_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -301,6 +314,10 @@
             <End Role="Company" EntitySet="Company" />
             <End Role="CompanyUser" EntitySet="CompanyUser" />
           </AssociationSet>
+          <AssociationSet Name="FK_CompanyUser_Role" Association="Self.FK_CompanyUser_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="CompanyUser" EntitySet="CompanyUser" />
+          </AssociationSet>
           <AssociationSet Name="FK_CompanyUser_User" Association="Self.FK_CompanyUser_User">
             <End Role="User" EntitySet="User" />
             <End Role="CompanyUser" EntitySet="CompanyUser" />
@@ -350,7 +367,8 @@
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CraftedFoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -373,8 +391,10 @@
           <Property Name="CompanyUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Company" Relationship="Self.FK_CompanyUser_Company" FromRole="CompanyUser" ToRole="Company" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_CompanyUser_Role" FromRole="CompanyUser" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="Self.FK_CompanyUser_User" FromRole="CompanyUser" ToRole="User" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_CompanyUser" FromRole="CompanyUser" ToRole="Order" />
           <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_CompanyUser" FromRole="CompanyUser" ToRole="Rating" />
@@ -386,7 +406,7 @@
           <Property Name="KetteringId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="KetteringUser" Relationship="Self.FK_KetteringUser_Kettering" FromRole="Kettering" ToRole="KetteringUser" />
@@ -399,11 +419,11 @@
           <Property Name="KetteringUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="KetteringId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Kettering" Relationship="Self.FK_KetteringUser_Kettering" FromRole="KetteringUser" ToRole="Kettering" />
           <NavigationProperty Name="User" Relationship="Self.FK_KetteringUser_User" FromRole="KetteringUser" ToRole="User" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="CraftedFoodModel.FK_KetteringUser_UserRole" FromRole="KetteringUser" ToRole="Role" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_KetteringUser_UserRole" FromRole="KetteringUser" ToRole="Role" />
         </EntityType>
         <EntityType Name="Meal">
           <Key>
@@ -413,7 +433,7 @@
           <Property Name="MenuId" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="UnitOfMeasureId" Type="Int32" Nullable="false" />
           <Property Name="MealCategoryId" Type="Int32" Nullable="false" />
@@ -476,7 +496,8 @@
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="KetteringUser" Relationship="CraftedFoodModel.FK_KetteringUser_UserRole" FromRole="Role" ToRole="KetteringUser" />
+          <NavigationProperty Name="CompanyUser" Relationship="Self.FK_CompanyUser_Role" FromRole="Role" ToRole="CompanyUser" />
+          <NavigationProperty Name="KetteringUser" Relationship="Self.FK_KetteringUser_UserRole" FromRole="Role" ToRole="KetteringUser" />
         </EntityType>
         <EntityType Name="UnitOfMeasure">
           <Key>
@@ -512,6 +533,18 @@
             </Principal>
             <Dependent Role="CompanyUser">
               <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUser_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -584,6 +617,18 @@
             </Principal>
             <Dependent Role="KetteringUser">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KetteringUser_UserRole">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="KetteringUser" Type="Self.KetteringUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="KetteringUser">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -664,6 +709,10 @@
             <End Role="Company" EntitySet="Company" />
             <End Role="CompanyUser" EntitySet="CompanyUser" />
           </AssociationSet>
+          <AssociationSet Name="FK_CompanyUser_Role" Association="Self.FK_CompanyUser_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="CompanyUser" EntitySet="CompanyUser" />
+          </AssociationSet>
           <AssociationSet Name="FK_CompanyUser_User" Association="Self.FK_CompanyUser_User">
             <End Role="User" EntitySet="User" />
             <End Role="CompanyUser" EntitySet="CompanyUser" />
@@ -688,6 +737,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="KetteringUser" EntitySet="KetteringUser" />
           </AssociationSet>
+          <AssociationSet Name="FK_KetteringUser_UserRole" Association="Self.FK_KetteringUser_UserRole">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="KetteringUser" EntitySet="KetteringUser" />
+          </AssociationSet>
           <AssociationSet Name="FK_Meal_MealCategory" Association="Self.FK_Meal_MealCategory">
             <End Role="MealCategory" EntitySet="MealCategory" />
             <End Role="Meal" EntitySet="Meal" />
@@ -708,23 +761,7 @@
             <End Role="Meal" EntitySet="Meal" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
-          <AssociationSet Name="FK_KetteringUser_UserRole" Association="CraftedFoodModel.FK_KetteringUser_UserRole">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="KetteringUser" EntitySet="KetteringUser" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_KetteringUser_UserRole">
-          <End Type="CraftedFoodModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="CraftedFoodModel.KetteringUser" Role="KetteringUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="KetteringUser">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -749,6 +786,7 @@
                 <ScalarProperty Name="CompanyUserId" ColumnName="CompanyUserId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -756,10 +794,10 @@
           <EntitySetMapping Name="Kettering">
             <EntityTypeMapping TypeName="CraftedFoodModel.Kettering">
               <MappingFragment StoreEntitySet="Kettering">
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="KetteringId" ColumnName="KetteringId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
               </MappingFragment>
@@ -768,10 +806,10 @@
           <EntitySetMapping Name="KetteringUser">
             <EntityTypeMapping TypeName="CraftedFoodModel.KetteringUser">
               <MappingFragment StoreEntitySet="KetteringUser">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="KetteringUserId" ColumnName="KetteringUserId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="KetteringId" ColumnName="KetteringId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -853,7 +891,6 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="CraftedFoodModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="PasswordResetGuid" ColumnName="PasswordResetGuid" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
@@ -862,6 +899,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PasswordResetGuid" ColumnName="PasswordResetGuid" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
               </MappingFragment>
             </EntityTypeMapping>

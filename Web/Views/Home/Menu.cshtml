@@ -1,10 +1,11 @@
 ﻿@model Web.Models.MenuModel
+@using Web.Models
 
 @{
     ViewBag.Title = "Menu";
 }
 
-<h2>@Html.DisplayFor(model => model.Name)</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2> <a href="#" data-toggle="modal" data-target="#add-meal-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
 
 
 @foreach (var item in Model.Meals)
@@ -16,9 +17,29 @@
     <div>
         @Html.DisplayFor(modelItem => item.Description)
     </div>
+
+    <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = item.DisplayImage })" />
 }
 
-<button class="addMeal" id=@Html.DisplayFor(model => model.MenuId)>Add Meal</button>
+<div id="add-meal-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Menu</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("_AddMeal", new MealModel(Model.MenuId))
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

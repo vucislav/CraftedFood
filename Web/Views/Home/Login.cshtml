@@ -1,47 +1,278 @@
 ﻿@model Web.Models.LoginModel
-
 @{
     ViewBag.Title = "Login";
 }
+@*<h2>Login</h2>
 
-<h2>Login</h2>
-
-<form action="/Home/Login" method="post">
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Login">Login</label>
-            <div class="col-md-10">
-                <input class="form-control text-box single-line" id="login" name="Login" type="text" value="">
-                <span class="field-validation-valid text-danger" data-valmsg-for="Login" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Password">Password</label>
-            <div class="col-md-10">
-                <input class="form-control text-box single-line" id="password" name="Password" type="password" value="">
-                <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="RememberMe">RememberMe</label>
-            <div class="col-md-10">
-                <div class="checkbox">
-                    <input class="check-box" id="remember-me" name="RememberMe" type="checkbox">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="RememberMe" data-valmsg-replace="true"></span>
+    <form action="/Home/Login" method="post">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Login">Login</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="login" name="Login" type="text" value="">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Login" data-valmsg-replace="true"></span>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="login-btn" value="Login" class="btn btn-default">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Password">Password</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="password" name="Password" type="password" value="">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                </div>
             </div>
-        </div>
-</form>
 
-<a href="/Home/ResetPassword">Forgot your password?</a>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="RememberMe">RememberMe</label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        <input class="check-box" id="remember-me" name="RememberMe" type="checkbox">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="RememberMe" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="login-btn" value="Login" class="btn btn-default">
+                </div>
+            </div>
+    </form>*@
+@*<a href="/Home/ResetPassword">Forgot your password?</a>*@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Material Login Form</title>
+
+
+        <link rel="stylesheet" href="~/PlugIns/material-login-form/css/reset.css">
+        <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
+        <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+        <link rel="stylesheet" href="~/PlugIns/material-login-form/css/style.css">
+
+
+
+    </head>
+    <body>
+
+        <!-- Mixins-->
+        <!-- Pen Title-->
+        <div class="container">
+            <div class="card"></div>
+            <div class="card">
+                <h1 class="title">Login</h1>
+                <form action="/Home/Login" method="post">
+                    <div class="input-container">
+                        <input type="text" id="Login" name="Login" required="required" />
+                        <label for="Login">Username or Email</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="Password" name="Password" required="required" />
+                        <label for="Password">Password</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="button-container">
+                        <button><span>Go</span></button>
+                    </div>
+                    <div class="footer"><a href="/Home/ResetPassword">Forgot your password?</a></div>
+                </form>
+            </div>
+            <div class="card alt">
+                <div class="toggle"></div>
+                <h1 class="title">
+                    Register
+                    <div class="close"></div>
+                </h1>
+                <form action="/Home/SignUp" method="post">
+                    <div class="input-container">
+                        <input type="text" id="first-name" name="FirstName" required="required" />
+                        <label for="FirstName">First name</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="middle-name" name="MiddleName" required="required" />
+                        <label for="MiddleName">Middle name</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="last-name" name="LastName" required="required" />
+                        <label for="LastName">Last name</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="Username" name="Username" required="required" />
+                        <label for="Username">Username</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="email" name="Email" required="required" />
+                        <label for="Email">Email</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="phone" name="Phone" required="required" />
+                        <label for="Phone">Phone</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="password" name="Password" required="required" />
+                        <label for="Password">Password</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="confirm-password" name="PasswordConfirm" required="required" />
+                        <label for="PasswordConfirm">Repeat Password</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="button-container">
+                        <button><span>Next</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="~/PlugIns/material-login-form/js/index.js"></script>
+
+
+
+    </body>
+    </html>*@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/normalize.css">
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/style.css">
+    <style>
+        input {
+           max-width: 100%;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="form">
+
+        <ul class="tab-group">
+            <li class="tab active"><a href="#login">Log In</a></li>
+            <li class="tab"><a href="#signup">Sign Up</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="login">
+                <h1>Welcome Back!</h1>
+
+                <form action="/Home/Login" method="post">
+
+                    <div class="field-wrap">
+                        <label>
+                            Login<span class="req">*</span>
+                        </label>
+                        <input type="text" required autocomplete="off" name="Login" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Password<span class="req">*</span>
+                        </label>
+                        <input type="password" required autocomplete="off" name="Password" />
+                    </div>
+
+                    <p class="forgot"><a href="/Home/ResetPassword">Forgot Password?</a></p>
+
+                    <button class="button button-block" />Log In</button>
+
+                </form>
+            </div>
+
+            <div id="signup">
+                <h1>Sign Up for Free</h1>
+
+                <form action="/Home/SignUp" method="post">
+
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>
+                                First Name<span class="req">*</span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="FirstName" />
+                        </div>
+
+                        <div class="field-wrap">
+                            <label>
+                                Middle Name
+                            </label>
+                            <input type="text" autocomplete="off" name="MiddleName" />
+                        </div>
+                    </div>
+
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>
+                                Last Name<span class="req">*</span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="LastName" />
+                        </div>
+
+                        <div class="field-wrap">
+                            <label>
+                                Username<span class="req">*</span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="Username" />
+                        </div>
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Email Address<span class="req">*</span>
+                        </label>
+                        <input type="email" required autocomplete="off" name="Email" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Phone
+                        </label>
+                        <input type="text" required autocomplete="off" name="Phone" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Password<span class="req">*</span>
+                        </label>
+                        <input type="password" autocomplete="off" name="Password" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Confirm Password<span class="req">*</span>
+                        </label>
+                        <input type="password" required autocomplete="off" name="PasswordConfirm" />
+                    </div>
+
+                    <button type="submit" class="button button-block" />Get Started</button>
+
+                </form>
+            </div>
+
+        </div><!-- tab-content -->
+
+    </div> <!-- /form -->
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Plugins/sign-up-login-form/js/index.js"></script>
+
+
+
+</body>
+</html>

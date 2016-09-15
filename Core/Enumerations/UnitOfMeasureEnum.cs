@@ -9,7 +9,7 @@ namespace Core.Enumerations
     public enum UnitOfMeasureEnum
     {
         Grams = 1,
-        Mililitres,
+        Mililiters,
         Pieces
     }
 }

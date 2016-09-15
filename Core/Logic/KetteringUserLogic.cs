@@ -11,7 +11,17 @@ namespace Core.Logic
 {
     public static class KetteringUserLogic
     {
-        public static void Create(KetteringUserDTO ketteringUser, RoleEnum role, CraftedFoodEntities context = null)
+        public static void Create(KetteringUserDTO ketteringUser, RoleEnum role)
+        {
+            Create(ketteringUser, role, null);
+        }
+
+        public static void Create(CraftedFoodEntities context, KetteringUserDTO ketteringUser, RoleEnum role)
+        {
+            Create(ketteringUser, role, context);
+        }
+
+        private static void Create(KetteringUserDTO ketteringUser, RoleEnum role, CraftedFoodEntities context)
         {
             KetteringUser ketUser = new KetteringUser
             {

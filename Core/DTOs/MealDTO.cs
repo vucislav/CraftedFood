@@ -13,7 +13,7 @@ namespace Core.DTOs
         public int MenuId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Byte[] Image { get; set; }
+        public string Image { get; set; }
         public int Quantity { get; set; }
         public int UnitOfMeasureId { get; set; }
         public int MealCategoryId { get; set; }
