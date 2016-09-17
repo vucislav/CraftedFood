@@ -17,5 +17,6 @@ namespace Core.DTOs
         public int Quantity { get; set; }
         public int UnitOfMeasureId { get; set; }
         public int MealCategoryId { get; set; }
+        public int Price { get; set; }
     }
 }

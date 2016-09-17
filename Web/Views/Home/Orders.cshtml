@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Web.Models.OrderModel>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+@using Core.Logic;
+
+<h2>Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MealTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MealTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+
+        @if (item.CompanyUserId == UserLogic.GetCompanyUserId((int)Session["userId"], item.CompanyId))
+        {
+            <td>
+                @Html.ActionLink("Delete", "DeleteOrder", new { orderId = item.OrderId, companyUserId = item.CompanyUserId })
+            </td>
+        }
+    </tr>
+}
+
+</table>

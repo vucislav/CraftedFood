@@ -4,20 +4,15 @@
     ViewBag.Title = "Meal";
 }
 
+@using Web.Models
+@using Core.Logic
+
 <h2>Meal</h2>
 
 <div>
     <h4>MealModel</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MenuId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MenuId)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -58,5 +53,27 @@
             @Html.DisplayFor(model => model.MealCategory)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
     </dl>
+
+    @Html.Partial("_PlaceOrder", new OrderModel(Model.MealId, UserLogic.GetCompanyId((int)Session["userId"])))
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @Scripts.Render("~/Scripts/Custom/placeOrder.js")
+}
+

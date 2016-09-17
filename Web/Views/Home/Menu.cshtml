@@ -8,6 +8,7 @@
 @*<h2>@Html.DisplayFor(model => model.Name)</h2> <a href="#" data-toggle="modal" data-target="#add-meal-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
 
 
+<<<<<<< HEAD
     @foreach (var item in Model.Meals)
     {
         <div>
@@ -108,6 +109,23 @@
         </div>
     }
 
+@*foreach (var item in Model.Meals)
+{
+    <div class="mealCard" id="@item.MealId">
+        <div>
+            @Html.DisplayFor(modelItem => item.Title)
+        </div>
+
+        <div>
+            @Html.DisplayFor(modelItem => item.Description)
+        </div>
+
+        <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = item.DisplayImage })" />
+    </div>
+}
+    <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = item.DisplayImage })" />
+}*@
+
     <div id="add-meal-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             @Html.Partial("_AddMeal", new MealModel((int?)Model.MenuId))
@@ -125,6 +143,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/Custom/addMeal.js")
     @Styles.Render("~/Content/dropdown.css")
+    @Scripts.Render("~/Scripts/Custom/meal.js")
 }
 
 

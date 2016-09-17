@@ -29,6 +29,7 @@ namespace Web.Controllers
             if (userId != 0)
             {
                 Session["userId"] = userId; // URADITI: da se upamte svi potrebni podaci
+
                 Session.Timeout = model.RememberMe ? 525600 : 525600; // URADITI: ovo drugo treba 20, ako ima remember me?
                 return RedirectToAction("Index");
             }
@@ -170,7 +171,7 @@ namespace Web.Controllers
             UserLogic.ChangePassword(user.UserId, user.OldPassword, user.Password);
             return RedirectToAction("Index");
         }
-		
+
         [AllowAnonymous]
         public ActionResult AddMenu()
         {
@@ -230,11 +231,18 @@ namespace Web.Controllers
                     Description = model.Description,
                     Image = fileName,
                     Quantity = model.Quantity,
-                    UnitOfMeasureId = model.UnitOfMeasureId,
-                    MealCategoryId = model.MealCategoryId
+                    UnitOfMeasureId = (int)model.UnitOfMeasures,
+                    MealCategoryId = (int)model.MealCategories,
+                    Price = model.Price
                 });
             }
             return RedirectToAction("Menu", new { id = model.MenuId });
+        }
+
+        [AllowAnonymous]
+        public ActionResult Meal(int id)
+        {
+            return View(new MealModel((int?)id));
         }
 
         private byte[] ConvertToByteArray(HttpPostedFileBase file)
@@ -252,7 +260,7 @@ namespace Web.Controllers
             }
             return data;
         }
-        
+
         [AllowAnonymous]
         public ActionResult getImg(string img)
         {
@@ -290,16 +298,17 @@ namespace Web.Controllers
             }
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
-		
-		[AllowAnonymous]
+
+        [AllowAnonymous]
         public ActionResult Ratings(int id)
         {
             return View(RatingModel.GetRatingsForMeal(id));
-        } 
+        }
 
         [AllowAnonymous]
         public ActionResult AddRating(int id)
         {
+            //URADITI: STA VEC TREBA
             return View(new RatingModel(id, 1));
         }
 
@@ -319,7 +328,7 @@ namespace Web.Controllers
             }
             return RedirectToAction("Ratings/" + model.MealId);
         }
-
+        
         public ActionResult EditKettering(KetteringModel model)
         {
             KetteringLogic.Edit(new KetteringDTO
@@ -337,6 +346,39 @@ namespace Web.Controllers
         {
             KetteringLogic.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult _PlaceOrder(OrderModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                OrderLogic.Create(new OrderDTO
+                {
+                    MealId = model.MealId,
+                    CompanyUserId = model.CompanyUserId,
+                    Note = model.Note,
+                    Comment = model.Comment,
+                    Date = model.Date,
+                });
+            }
+            return RedirectToAction("Meal/" + model.MealId);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Orders(int id)
+        {
+            return View(OrderModel.GetOrdersForCompanyUser(id));
+            //return View(OrderModel.GetOrdersForKettering(id));
+            //return View(OrderModel.GetOrdersForCompany(id));
+        }
+
+        [AllowAnonymous]
+        public ActionResult DeleteOrder(int orderId, int companyUserId)
+        {
+            OrderLogic.Delete(orderId);
+            return View("Orders", OrderModel.GetOrdersForCompanyUser(companyUserId));
         }
     }
 }

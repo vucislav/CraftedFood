@@ -21,7 +21,8 @@ namespace Core.Logic
                 Image = meal.Image,
                 Quantity = meal.Quantity,
                 UnitOfMeasureId = meal.UnitOfMeasureId,
-                MealCategoryId = meal.MealCategoryId
+                MealCategoryId = meal.MealCategoryId,
+                Price = meal.Price
             };
             using (var dc = new CraftedFoodEntities())
             {
@@ -51,6 +52,7 @@ namespace Core.Logic
                     m.Quantity = meal.Quantity;
                     m.UnitOfMeasureId = meal.UnitOfMeasureId;
                     m.MealCategoryId = meal.MealCategoryId;
+                    m.Price = meal.Price;
                 }
                 try
                 {
@@ -96,7 +98,8 @@ namespace Core.Logic
                     Image = m.Image,
                     Quantity = m.Quantity,
                     UnitOfMeasureId = m.UnitOfMeasureId,
-                    MealCategoryId = m.MealCategoryId
+                    MealCategoryId = m.MealCategoryId,
+                    Price = (int)m.Price,
                 };
             }
         }

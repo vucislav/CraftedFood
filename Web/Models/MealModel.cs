@@ -25,6 +25,8 @@ namespace Web.Models
         public int UnitOfMeasureId { get; set; }
         public int MealCategoryId { get; set; }
 
+        public int Price { get; set; }
+
         public MealModel()
         {
 
@@ -32,19 +34,20 @@ namespace Web.Models
 
         public MealModel (int id)
         {
-            var m = MealLogic.GetMealById(id);
-            MenuId = m.MenuId;
-            Title = m.Title;
-            Description = m.Description;
-            //Image = m.Image;
-            Quantity = m.Quantity;
-            UnitOfMeasureId = m.UnitOfMeasureId;
-            MealCategoryId = m.MealCategoryId;
+            MenuId = id;
         }
 
         public MealModel(int? id)
         {
-            MenuId = (int)id;
+            var m = MealLogic.GetMealById((int)id);
+            MealId = (int)id;
+            Title = m.Title;
+            Description = m.Description;
+            DisplayImage = m.Image;
+            Quantity = m.Quantity;
+            UnitOfMeasure = ((UnitOfMeasureEnum)m.UnitOfMeasureId).ToString();
+            MealCategory = ((MealCategoryEnum)m.MealCategoryId).ToString();
+            Price = m.Price;
         }
     }
 }

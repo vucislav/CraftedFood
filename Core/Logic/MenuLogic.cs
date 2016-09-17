@@ -92,7 +92,8 @@ namespace Core.Logic
                         Image = x.Image,
                         Quantity = x.Quantity,
                         MealCategoryId = x.MealCategoryId,
-                        UnitOfMeasureId = x.UnitOfMeasureId
+                        UnitOfMeasureId = x.UnitOfMeasureId,
+                        Price = (int)x.Price
                     })
                 };
             }
