@@ -29,6 +29,7 @@ namespace Web.Controllers
             if (userId != 0)
             {
                 Session["userId"] = userId; // URADITI: da se upamte svi potrebni podaci
+
                 Session.Timeout = model.RememberMe ? 525600 : 525600; // URADITI: ovo drugo treba 20, ako ima remember me?
                 return RedirectToAction("Index");
             }
@@ -170,7 +171,7 @@ namespace Web.Controllers
             UserLogic.ChangePassword(user.UserId, user.OldPassword, user.Password);
             return RedirectToAction("Index");
         }
-		
+
         [AllowAnonymous]
         public ActionResult AddMenu()
         {
@@ -231,7 +232,8 @@ namespace Web.Controllers
                     Image = fileName,
                     Quantity = model.Quantity,
                     UnitOfMeasureId = (int)model.UnitOfMeasures,
-                    MealCategoryId = (int)model.MealCategories
+                    MealCategoryId = (int)model.MealCategories,
+                    Price = model.Price
                 });
             }
             return RedirectToAction("Menu", new { id = model.MenuId });
@@ -258,7 +260,7 @@ namespace Web.Controllers
             }
             return data;
         }
-        
+
         [AllowAnonymous]
         public ActionResult getImg(string img)
         {
@@ -296,12 +298,12 @@ namespace Web.Controllers
             }
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
-		
-		[AllowAnonymous]
+
+        [AllowAnonymous]
         public ActionResult Ratings(int id)
         {
             return View(RatingModel.GetRatingsForMeal(id));
-        } 
+        }
 
         [AllowAnonymous]
         public ActionResult AddRating(int id)
@@ -349,6 +351,15 @@ namespace Web.Controllers
         public ActionResult Orders(int id)
         {
             return View(OrderModel.GetOrdersForCompanyUser(id));
+            //return View(OrderModel.GetOrdersForKettering(id));
+            //return View(OrderModel.GetOrdersForCompany(id));
+        }
+
+        [AllowAnonymous]
+        public ActionResult DeleteOrder(int orderId, int companyUserId)
+        {
+            OrderLogic.Delete(orderId);
+            return View("Orders", OrderModel.GetOrdersForCompanyUser(companyUserId));
         }
 
     }

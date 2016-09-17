@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace Core.Logic
 {
@@ -96,11 +97,59 @@ namespace Core.Logic
                         {
                             OrderId = o.OrderId,
                             CompanyUserId = o.CompanyUserId,
+                            CompanyId = o.CompanyUser.CompanyId,
                             Comment = o.Comment,
                             Date = o.Date,
                             MealId = o.MealId,
                             MealTitle = o.Meal.Title,
-                            Note = o.Note
+                            Note = o.Note,
+                            Price = (int)o.Meal.Price
+                        }).ToList();
+            }
+        }
+
+        public static IEnumerable<OrderDTO> GetOrdersForKettering(int ketteringId)
+        {
+            var currentDate = DateTime.Now.AddDays(-1);
+
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from o in dc.Order
+                        where o.Meal.Menu.KetteringId == ketteringId && o.Date >= currentDate && o.DeleteDate == null
+                        select new OrderDTO
+                        {
+                            OrderId = o.OrderId,
+                            CompanyUserId = o.CompanyUserId,
+                            CompanyId = o.CompanyUser.CompanyId,
+                            Comment = o.Comment,
+                            Date = o.Date,
+                            MealId = o.MealId,
+                            MealTitle = o.Meal.Title,
+                            Note = o.Note,
+                            Price = (int)o.Meal.Price
+                        }).ToList();
+            }
+        }
+
+        public static IEnumerable<OrderDTO> GetOrdersForCompany(int companyId)
+        {
+            var currentDate = DateTime.Today;
+
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from o in dc.Order
+                        where o.CompanyUser.CompanyId == companyId && o.Date == currentDate && o.DeleteDate == null
+                        select new OrderDTO
+                        {
+                            OrderId = o.OrderId,
+                            CompanyUserId = o.CompanyUserId,
+                            CompanyId = o.CompanyUser.CompanyId,
+                            Comment = o.Comment,
+                            Date = o.Date,
+                            MealId = o.MealId,
+                            MealTitle = o.Meal.Title,
+                            Note = o.Note,
+                            Price = (int)o.Meal.Price
                         }).ToList();
             }
         }

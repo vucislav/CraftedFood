@@ -246,5 +246,25 @@ namespace Core.Logic
                         select u.UserId).FirstOrDefault();
             }
         }
+
+        public static int GetCompanyUserId(int userId, int companyId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from u in dc.CompanyUser
+                        where u.UserId == userId && u.CompanyId == companyId
+                        select u.CompanyUserId).FirstOrDefault();
+            }
+        }
+
+        public static int GetCompanyId(int userId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from u in dc.CompanyUser
+                        where u.UserId == userId
+                        select u.CompanyId).FirstOrDefault();
+            }
+        }
     }
 }

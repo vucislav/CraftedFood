@@ -5,7 +5,7 @@
     ViewBag.Title = "Menu";
 }
 
-<h2>@Html.DisplayFor(model => model.Name)</h2> <a href="#" data-toggle="modal" data-target="#add-meal-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
+@*<h2>@Html.DisplayFor(model => model.Name)</h2> <a href="#" data-toggle="modal" data-target="#add-meal-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
 
 
 @foreach (var item in Model.Meals)
@@ -23,7 +23,7 @@
     </div>
 }
     <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = item.DisplayImage })" />
-}
+} *@
 
 <div id="add-meal-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">

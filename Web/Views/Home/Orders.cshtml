@@ -4,11 +4,10 @@
     ViewBag.Title = "Orders";
 }
 
+@using Core.Logic;
+
 <h2>Orders</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -22,6 +21,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
         </th>
         <th></th>
     </tr>
@@ -41,10 +43,15 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => item.Price)
         </td>
+
+        @if (item.CompanyUserId == UserLogic.GetCompanyUserId((int)Session["userId"], item.CompanyId))
+        {
+            <td>
+                @Html.ActionLink("Delete", "DeleteOrder", new { orderId = item.OrderId, companyUserId = item.CompanyUserId })
+            </td>
+        }
     </tr>
 }
 

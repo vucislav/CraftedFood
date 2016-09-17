@@ -5,6 +5,7 @@
 }
 
 @using Web.Models
+@using Core.Logic
 
 <h2>Meal</h2>
 
@@ -51,11 +52,18 @@
         <dd>
             @Html.DisplayFor(model => model.MealCategory)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
     </dl>
 
-    @Html.Partial("_PlaceOrder", new OrderModel(Model.MealId, 1))
+    @Html.Partial("_PlaceOrder", new OrderModel(Model.MealId, UserLogic.GetCompanyId((int)Session["userId"])))
 </div>
-
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")

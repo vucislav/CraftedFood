@@ -30,6 +30,7 @@ namespace Data
         public int UnitOfMeasureId { get; set; }
         public int MealCategoryId { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
+        public Nullable<int> Price { get; set; }
     
         public virtual MealCategory MealCategory { get; set; }
         public virtual Menu Menu { get; set; }
