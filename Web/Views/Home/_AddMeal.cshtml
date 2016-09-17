@@ -4,7 +4,7 @@
     ViewBag.Title = "AddMeal";
 }
 
-<h2>AddMeal</h2>
+@*<h2>AddMeal</h2>
 
 
 @using (Html.BeginForm("AddMeal", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -71,4 +71,76 @@
             </div>
         </div>
     </div>
-}
+}*@
+
+<div class="form">
+
+    <h1>Add meal</h1>
+    <form action="/Home/AddMeal" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="MenuId" value="@Model.MenuId" />
+
+        <div class="field-wrap">
+            <label>
+                Title<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="Title" />
+        </div>
+
+        <div class="field-wrap">
+            <label>
+                Description
+            </label>
+            <input type="text" autocomplete="off" name="Description" />
+        </div>
+
+        <div class="field-wrap">
+            <label>
+                Quantity<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="Quantity" />
+        </div>
+
+        <div class="field-wrap">
+            <label>
+                Unit of measure<span class="req">*</span>
+            </label>
+        </div>
+        <select name="UnitOfMeasureId">
+            <!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+            <option value="0">Select an Option</option>
+            <option value="1">Grams</option>
+            <option value="2">Mililiters</option>
+            <option value="3">Pieces</option>
+        </select>
+
+        <div class="field-wrap">
+            <label>
+                Meal category<span class="req">*</span>
+            </label>
+        </div>
+        <select name="MealCategoryId">
+            <!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+            <option value="0">Select an Option</option>
+            <option value="1">Salad</option>
+            <option value="2">Sandwich</option>
+            <option value="3">Bakery</option>
+            <option value="4">Pasta</option>
+            <option value="5">Sweet</option>
+            <option value="6">Drink</option>
+            <option value="7">Cooked meal</option>
+        </select>
+
+        <div class="field-wrap">
+            <label>
+                Image<span class="req">*</span>
+            </label>
+        </div>
+        <input type="file" name="Image" />
+
+        
+
+        <button class="button button-block" />Create</button>
+
+    </form>
+</div>

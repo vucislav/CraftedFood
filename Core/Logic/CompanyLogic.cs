@@ -88,20 +88,30 @@ namespace Core.Logic
             using (var dc = new CraftedFoodEntities())
             {
                 var com = GetCompanyById(companyId, dc);
-                return new CompanyDTO
+                var company = new CompanyDTO
                 {
                     CompanyId = com.CompanyId,
                     Name = com.Name,
                     Description = com.Description,
                     Address = com.Address,
-                    Phone = com.Phone
+                    Phone = com.Phone,
+                    Members = com.CompanyUser.ToList().Select(x => new UserDTO
+                    {
+                        FirstName = x.User.FirstName,
+                        MiddleName = x.User.MiddleName,
+                        LastName = x.User.LastName,
+                        Username = x.User.Username,
+                        Email = x.User.Email,
+                        Phone = x.User.Phone
+                    }).OrderBy(x => x.FirstName)
                 };
+                return company;
             }
         }
 
         private static Company GetCompanyById(int companyId, CraftedFoodEntities dc)
         {
-            return (from c in dc.Company
+            return (from c in dc.Company.Include("CompanyUser.User")
                     where c.CompanyId == companyId && c.DeleteDate == null
                     select c).FirstOrDefault();
         }

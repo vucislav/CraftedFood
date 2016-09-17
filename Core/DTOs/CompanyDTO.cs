@@ -14,5 +14,6 @@ namespace Core.DTOs
         public string Address { get; set; }
         public string Phone { get; set; }
         public bool IsKettering { get; set; }
+        public IEnumerable<UserDTO> Members { get; set; }
     }
 }

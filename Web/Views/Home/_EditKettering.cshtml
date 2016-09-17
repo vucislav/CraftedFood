@@ -1,0 +1,111 @@
+﻿@model Web.Models.KetteringModel
+
+
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>KetteringModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.KetteringId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KetteringId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.KetteringId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}*@
+
+<style>
+    .form {
+        background-color: rgba(19, 35, 47, 1);
+    }
+</style>
+
+<script src="~/Plugins/sign-up-login-form/js/index.js"></script>
+
+<div class="form">
+
+    <h1>Edit company info</h1>
+
+    <form action="/Home/EditKettering" method="post">
+
+        <input type="hidden" name="KetteringId" value="@Model.KetteringId" />
+
+        <div class="field-wrap">
+            <label>
+                Name<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="Name" value="@Model.Name" />
+        </div>
+
+        <div class="field-wrap">
+            <label>
+                Address<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="Address" value="@Model.Address" />
+        </div>
+
+        <div class="field-wrap">
+            <label>
+                Phone<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="Phone" value="@Model.Phone" />
+        </div>
+
+        <div class="field-wrap">
+            <label>
+                Description
+            </label>
+            <input type="text" autocomplete="off" name="Description" value="@Model.Description" />
+        </div>
+
+        <button class="button button-block" />Update</button>
+
+    </form>
+</div> <!-- /form -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

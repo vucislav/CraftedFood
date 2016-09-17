@@ -280,7 +280,7 @@ namespace Web.Controllers
         public ActionResult AddCompanyUser(int companyId, string username)
         {
             int? userId = UserLogic.GetIdByUsername(username);
-            if (userId != null)
+            if (userId != null && userId != 0)
             {
                 CompanyUserLogic.Create(new CompanyUserDTO
                 {
@@ -318,6 +318,25 @@ namespace Web.Controllers
                 });
             }
             return RedirectToAction("Ratings/" + model.MealId);
+        }
+
+        public ActionResult EditKettering(KetteringModel model)
+        {
+            KetteringLogic.Edit(new KetteringDTO
+            {
+                KetteringId = model.KetteringId,
+                Name = model.Name,
+                Description = model.Description,
+                Address = model.Address,
+                Phone = model.Phone
+            });
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
+        public ActionResult DeleteKettering(int id)
+        {
+            KetteringLogic.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

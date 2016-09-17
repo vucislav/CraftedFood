@@ -30,6 +30,15 @@ namespace Web.Models
             Address = com.Address;
             Phone = com.Phone;
             IsKettering = com.IsKettering;
+            Members = com.Members.Select(x => new UserModel
+            {
+                FirstName = x.FirstName,
+                MiddleName = x.MiddleName,
+                LastName = x.LastName,
+                Email = x.Email,
+                Username = x.Username,
+                Phone = x.Phone
+            });
         }
 
         public static IEnumerable<CompanyModel> GetCompaniesForUser(int UserId)

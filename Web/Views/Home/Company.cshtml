@@ -1,66 +1,178 @@
 ﻿@model Web.Models.CompanyModel
+@using Web.Models;
 
 @{
     ViewBag.Title = "Company";
 }
 
-<h2>Company</h2>
+@*<h2>Company</h2>
 
-<form action="/Home/AddKetteringUser" method="post">
-    <div class="form-horizontal">
-        <input type="hidden" name="KetteringId" value="@Model.CompanyId" />
+    <form action="/Home/AddCompanyUser" method="post">
+        <div class="form-horizontal">
+            <input type="hidden" name="CompanyId" value="@Model.CompanyId" />
 
-        <div class="form-group">
-            <label for="Username">Username</label>
-            <div class="col-md-10">
-                <input type="text" name="Username" />
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <div class="col-md-10">
+                    <input type="text" name="Username" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
+    </form>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+    <div>
+        <h4>CompanyModel</h4>
+        <input type="hidden" name="CompanyId" value="@Model.CompanyId" />
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+
+        </dl>
+    </div>*@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/normalize.css">
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/style.css">
+    <style>
+        input {
+            max-width: 100%;
+        }
+
+        .form {
+            top: 50%;
+        }
+
+        .white {
+            color: white;
+        }
+
+        span {
+            padding: 0;
+            margin: 0;
+        }
+
+        * {
+            font-family: Titillium;
+        }
+
+        .info {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            font-size: 125%;
+        }
+
+        .title {
+            margin-bottom: 0;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div class="form text-center white">
+                <h1 class="title">@Model.Name</h1>
+                <div class="info">
+                    <span>Address:&nbsp;</span><span>@Model.Address</span><br />
+                    <span>Phone:&nbsp;</span><span>@Model.Phone</span><br />
+                    <span>Description:&nbsp;</span><span>@Model.Description</span><br />
+                </div>
             </div>
+
+            <div class="form">
+                <h1>Add an employee</h1>
+
+                <form action="/Home/AddCompanyUser" method="post">
+
+                    <input type="hidden" name="companyId" value="@Model.CompanyId" />
+
+                    <div class="field-wrap">
+                        <label>
+                            Username
+                        </label>
+                        <input type="text" required autocomplete="off" name="Username" />
+                    </div>
+
+                    <button class="button button-block" />Add</button>
+                </form>
+            </div>
+
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <div class="form white">
+                <h1>Company members</h1>
+                <hr />
+                @foreach (var item in Model.Members)
+                {
+                    <h3>@(item.FirstName + " " + item.MiddleName + " " + item.LastName)</h3>
+                    <div class="info">
+                        <span>Email:&nbsp;</span><span>@item.Email</span><br />
+                        <span>Username:&nbsp;</span><span>@item.Username</span><br />
+                        <span>Phone:&nbsp;</span><span>@item.Phone</span><br />
+                    </div>
+                    <hr />
+                }
+            </div>
+
         </div>
     </div>
-</form>
 
-<div>
-    <h4>CompanyModel</h4>
-    <input type="hidden" name="CompanyId" value="@Model.CompanyId" />
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+    @*<div id="add-menu-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                @Html.Partial("_AddMenu", new MenuModel((int?)Model.KetteringId))
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            </div>
+        </div>*@
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Plugins/sign-up-login-form/js/index.js"></script>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-    </dl>
-</div>
+</body>
+</html>

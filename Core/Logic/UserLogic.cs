@@ -138,7 +138,7 @@ namespace Core.Logic
 
                 if (user != null)
                 {
-                    foreach (var ket in user.KetteringUser)
+                    foreach (var ket in user.KetteringUser.Where(x => x.Kettering.DeleteDate == null))
                     {
                         companies.Add(new CompanyDTO
                         {
@@ -150,7 +150,7 @@ namespace Core.Logic
                             IsKettering = true
                         });
                     }
-                    foreach (var com in user.CompanyUser)
+                    foreach (var com in user.CompanyUser.Where(x => x.Company.DeleteDate == null))
                     {
                         companies.Add(new CompanyDTO
                         {

@@ -8,28 +8,123 @@
 @*<h2>@Html.DisplayFor(model => model.Name)</h2> <a href="#" data-toggle="modal" data-target="#add-meal-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
 
 
-@foreach (var item in Model.Meals)
-{
-    <div>
-        @Html.DisplayFor(modelItem => item.Title)
+    @foreach (var item in Model.Meals)
+    {
+        <div>
+            @Html.DisplayFor(modelItem => item.Title)
+        </div>
+
+        <div>
+            @Html.DisplayFor(modelItem => item.Description)
+        </div>
+
+        <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = item.DisplayImage })" />
+    }*@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/normalize.css">
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/style.css">
+    <style>
+        input {
+            max-width: 100%;
+        }
+
+        .form {
+            top: 50%;
+        }
+
+        .white {
+            color: white;
+        }
+
+        span {
+            padding: 0;
+            margin: 0;
+        }
+
+        * {
+            font-family: Titillium;
+        }
+
+        .info {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            font-size: 125%;
+        }
+
+        .title {
+            margin-bottom: 0;
+        }
+
+        select {
+            margin: 50px;
+            border: 1px solid #111;
+            background: transparent;
+            width: 150px;
+            padding: 5px 35px 5px 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            height: 34px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
+        }
+        /*target Internet Explorer 9 and Internet Explorer 10:*/
+    </style>
+
+</head>
+<body>
+    <div class="form">
+        <h1 class="title">@Model.Name</h1>
     </div>
 
-    <div>
-        @Html.DisplayFor(modelItem => item.Description)
-    </div>
+    @foreach (var item in Model.Meals)
+    {
+        <div class="row">
+            <div class="col-md-4 hidden-sm">
+                <div class="form">
+                    <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = item.DisplayImage })" />
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form white text-center">
+                    <h3 class="title">@item.Title</h3>
+                    <div class="info">
+                        <span>Quantity:&nbsp;</span><span>@(item.Quantity + " " + item.UnitOfMeasure)</span><br />
+                        <span>Category:&nbsp;</span><span>@item.MealCategory</span><br />
+                        <span>Description:&nbsp;</span><span>@item.Description</span><br />
+                    </div>
+                    <button id="@item.MealId" class="button button-block open-menu">Open</button>
+                </div>
+            </div>
+        </div>
+    }
 
-    <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = item.DisplayImage })" />
-}*@
-
-<div id="add-meal-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        @Html.Partial("_AddMeal", new MealModel((int?)Model.MenuId))
+    <div id="add-meal-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            @Html.Partial("_AddMeal", new MealModel((int?)Model.MenuId))
+        </div>
     </div>
-</div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Plugins/sign-up-login-form/js/index.js"></script>
+
+
+
+</body>
+</html>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/Custom/addMeal.js")
+    @Styles.Render("~/Content/dropdown.css")
 }
 
 
