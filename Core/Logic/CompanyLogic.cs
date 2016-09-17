@@ -26,6 +26,12 @@ namespace Core.Logic
                 try
                 {
                     dc.SaveChanges();
+
+                    CompanyUserLogic.Create(new CompanyUserDTO
+                    {
+                        CompanyId = com.CompanyId,
+                        UserId = userId
+                    }, Enumerations.RoleEnum.Admin, dc);
                 }
                 catch (Exception e)
                 {

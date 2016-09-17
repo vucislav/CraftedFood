@@ -4,7 +4,7 @@
     ViewBag.Title = "Menus";
 }
 
-<h2>Menus</h2>
+@*<h2>Menus</h2>
 
 <table class="table table-hover">
     <thead>
@@ -14,7 +14,7 @@
             </th>
         </tr>
     </thead>
-    
+
 
     <tbody>
         @foreach (var item in Model)
@@ -26,6 +26,29 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+
+<style>
+    .white {
+        color: white;
+    }
+    .big {
+        font-size: 200%
+    }
+</style>
+
+<div class="form">
+    <h1>Available menus</h1>
+    <hr />
+
+    @foreach (var item in Model)
+    {
+        <div class="white text-center ">
+            <span class="big">@item.Name</span>
+            <button class="table-row button button-block" id="@item.MenuId">Open</button>
+        </div>
+        <hr />
+    }
+</div>
 
 

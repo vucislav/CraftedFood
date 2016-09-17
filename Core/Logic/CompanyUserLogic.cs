@@ -11,7 +11,17 @@ namespace Core.Logic
 {
     public static class CompanyUserLogic
     {
-        public static void Create(CompanyUserDTO companyUser, RoleEnum role)
+        public static void Create(CompanyUserDTO ketteringUser, RoleEnum role)
+        {
+            Create(ketteringUser, role, null);
+        }
+
+        public static void Create(CraftedFoodEntities context, CompanyUserDTO ketteringUser, RoleEnum role)
+        {
+            Create(ketteringUser, role, context);
+        }
+
+        public static void Create(CompanyUserDTO companyUser, RoleEnum role, CraftedFoodEntities context)
         {
             CompanyUser comUser = new CompanyUser
             {
@@ -20,7 +30,7 @@ namespace Core.Logic
                 CompanyId = companyUser.CompanyId,
                 RoleId = (int)role
             };
-            using (var dc = new CraftedFoodEntities())
+            using (var dc = context ?? new CraftedFoodEntities())
             {
                 dc.CompanyUser.Add(comUser);
                 try

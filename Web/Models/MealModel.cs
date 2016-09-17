@@ -46,5 +46,10 @@ namespace Web.Models
             UnitOfMeasure = ((UnitOfMeasureEnum)m.UnitOfMeasureId).ToString();
             MealCategory = ((MealCategoryEnum)m.MealCategoryId).ToString();
         }
+
+        public MealModel(int? id)
+        {
+            MenuId = (int)id;
+        }
     }
 }
