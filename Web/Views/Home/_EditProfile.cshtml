@@ -1,7 +1,7 @@
 ﻿@model Web.Models.UserModel
 
 
-@using (Html.BeginForm("EditProfile", "Home"))
+@*@using (Html.BeginForm("EditProfile", "Home"))
 {
     @Html.AntiForgeryToken()
     
@@ -92,7 +92,113 @@
             </div>
         </div>
     </div>
-}
+}*@
+
+<style>
+    .form {
+        background-color: rgba(19, 35, 47, 1);
+    }
+</style>
+
+<script src="~/Plugins/sign-up-login-form/js/index.js"></script>
+
+<div class="form">
+
+    <h1>Edit your profile</h1>
+    <div id="">
+
+        <ul class="tab-group">
+            <li class="tab active"><a href="#edit-info">Edit info</a></li>
+            <li class="tab"><a href="#change-password">Change password</a></li>
+        </ul>
+
+
+        <div class="tab-content">
+            <div id="edit-info">
+                <form action="/Home/EditProfile" method="post">
+
+                    <input type="hidden" name="UserId" value="@Model.UserId" />
+
+                    <div class="field-wrap">
+                        <label>
+                            First Name<span class="req">*</span>
+                        </label>
+                        <input type="text" required autocomplete="off" name="FirstName" value="@Model.FirstName" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Middle Name
+                        </label>
+                        <input type="text" autocomplete="off" name="MiddleName" value="@Model.MiddleName" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Last Name<span class="req">*</span>
+                        </label>
+                        <input type="text" required autocomplete="off" name="LastName" value="@Model.LastName" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Username<span class="req">*</span>
+                        </label>
+                        <input type="text" required autocomplete="off" name="Username" value="@Model.Username" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            E-mail<span class="req">*</span>
+                        </label>
+                        <input type="text" required autocomplete="off" name="Email" value="@Model.Email" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Phone<span class="req">*</span>
+                        </label>
+                        <input type="text" required autocomplete="off" name="Phone" value="@Model.Phone" />
+                    </div>
+
+                    <button class="button button-block" />Update</button>
+
+                </form>
+            </div>
+
+            <div id="change-password">
+                <form action="/Home/ChangePassword" method="post">
+
+                    <input type="hidden" name="UserId" value="@Model.UserId" />
+
+                    <div class="field-wrap">
+                        <label>
+                            Old password<span class="req">*</span>
+                        </label>
+                        <input type="password" required autocomplete="off" name="OldPassword" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            New password<span class="req">*</span>
+                        </label>
+                        <input type="password" required autocomplete="off" name="Password" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Repeat new password<span class="req">*</span>
+                        </label>
+                        <input type="password" required autocomplete="off" name="OldPassword" />
+                    </div>
+
+                    <button class="button button-block" />Change password</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div> <!-- /form -->
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,3 +1,14 @@
+$(document).ready(function() {
+	$('.form').find('input, textarea').each(function() {
+		var $this = $(this),
+		label = $this.prev('label');
+		
+		if($(this).val() != "") {
+			label.addClass('active');
+		}
+	});
+});
+
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
   
   var $this = $(this),

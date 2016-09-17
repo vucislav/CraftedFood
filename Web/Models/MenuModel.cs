@@ -49,7 +49,18 @@ namespace Web.Models
             {
                 MenuId = x.MenuId,
                 Name = x.Name,
-                
+                KetteringId = x.KetteringId,
+                /*Meals = x.Meals.Select(y => new MealModel
+                {
+                    MealId = y.MealId,
+                    MenuId = y.MenuId,
+                    MealCategories = (MealCategoryEnum)y.MealCategoryId,
+                    UnitOfMeasures = (UnitOfMeasureEnum)y.UnitOfMeasureId,
+                    Title = y.Title,
+                    Description = y.Description,
+                    Quantity = y.Quantity,
+                    DisplayImage = y.Image
+                })*/
             });
         }
     }

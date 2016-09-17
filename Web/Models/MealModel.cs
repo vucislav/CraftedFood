@@ -41,5 +41,10 @@ namespace Web.Models
             UnitOfMeasureId = m.UnitOfMeasureId;
             MealCategoryId = m.MealCategoryId;
         }
+
+        public MealModel(int? id)
+        {
+            MenuId = (int)id;
+        }
     }
 }

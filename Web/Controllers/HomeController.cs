@@ -29,7 +29,7 @@ namespace Web.Controllers
             if (userId != 0)
             {
                 Session["userId"] = userId; // URADITI: da se upamte svi potrebni podaci
-                Session.Timeout = model.RememberMe ? 525600 : 20;
+                Session.Timeout = model.RememberMe ? 525600 : 525600; // URADITI: ovo drugo treba 20, ako ima remember me?
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Login");
@@ -85,16 +85,16 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //UserLogic.CreateUser(new UserDTO
-                //{
-                //    FirstName = model.FirstName,
-                //    MiddleName = model.MiddleName,
-                //    LastName = model.LastName,
-                //    Phone = model.Phone,
-                //    Username = model.Username,
-                //    Email = model.Email,
-                //    Password = model.Password
-                //});  URADITI: ODKOMENTARISATI
+                UserLogic.CreateUser(new UserDTO
+                {
+                    FirstName = model.FirstName,
+                    MiddleName = model.MiddleName,
+                    LastName = model.LastName,
+                    Phone = model.Phone,
+                    Username = model.Username,
+                    Email = model.Email,
+                    Password = model.Password
+                });
             }
             return RedirectToAction("Login");
         }

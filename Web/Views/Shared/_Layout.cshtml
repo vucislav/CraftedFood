@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/ribbon.css")
     @Scripts.Render("~/bundles/modernizr")
     @using Core.Logic
     @using Web.Models
@@ -32,15 +33,27 @@
                 @Html.ActionLink("CraftedFood", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>*@
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    @if (Request.Url.AbsolutePath == "/Home/Index" || Request.Url.AbsolutePath == "/")
+                    {
+                        <li><a href="#" data-toggle="modal" data-target="#create-company-modal" class="">Add company</a></li>
+                    }
+                    else if (Request.Url.AbsolutePath.Contains("/Home/Kettering"))
+                    {
+                        <li><a href="#" data-toggle="modal" data-target="#add-menu-modal" class="">Add menu</a></li>
+                    }
+                    else if (Request.Url.AbsolutePath.Contains("/Home/Menu"))
+                    {
+                        <li><a href="#" data-toggle="modal" data-target="#add-meal-modal" class="">Add meal</a></li>
+                    }
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["userId"] == null)
                     {
-                        <li><a href="/Home/SignUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        @*<li><a href="/Home/SignUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>*@
                         <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     }
                     else
@@ -61,27 +74,18 @@
 
     <div id="edit-profile-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Profile</h4>
-                </div>
                 <div class="modal-body">
                     @if (Session["userId"] != null)
                     {
                         @Html.Partial("_EditProfile", new UserModel((int)Session["userId"]))
                     }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
             </div>
 
         </div>
     </div>
 
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Plugins/sign-up-login-form/js/index.js"></script>
     @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
