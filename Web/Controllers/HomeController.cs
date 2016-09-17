@@ -230,11 +230,17 @@ namespace Web.Controllers
                     Description = model.Description,
                     Image = fileName,
                     Quantity = model.Quantity,
-                    UnitOfMeasureId = model.UnitOfMeasureId,
-                    MealCategoryId = model.MealCategoryId
+                    UnitOfMeasureId = (int)model.UnitOfMeasures,
+                    MealCategoryId = (int)model.MealCategories
                 });
             }
             return RedirectToAction("Menu", new { id = model.MenuId });
+        }
+
+        [AllowAnonymous]
+        public ActionResult Meal(int id)
+        {
+            return View(new MealModel((int?)id));
         }
 
         private byte[] ConvertToByteArray(HttpPostedFileBase file)
@@ -300,6 +306,7 @@ namespace Web.Controllers
         [AllowAnonymous]
         public ActionResult AddRating(int id)
         {
+            //URADITI: STA VEC TREBA
             return View(new RatingModel(id, 1));
         }
 
@@ -319,5 +326,30 @@ namespace Web.Controllers
             }
             return RedirectToAction("Ratings/" + model.MealId);
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult _PlaceOrder(OrderModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                OrderLogic.Create(new OrderDTO
+                {
+                    MealId = model.MealId,
+                    CompanyUserId = model.CompanyUserId,
+                    Note = model.Note,
+                    Comment = model.Comment,
+                    Date = model.Date,
+                });
+            }
+            return RedirectToAction("Meal/" + model.MealId);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Orders(int id)
+        {
+            return View(OrderModel.GetOrdersForCompanyUser(id));
+        }
+
     }
 }

@@ -32,14 +32,19 @@ namespace Web.Models
 
         public MealModel (int id)
         {
-            var m = MealLogic.GetMealById(id);
-            MenuId = m.MenuId;
+            MenuId = id;
+        }
+
+        public MealModel(int? id)
+        {
+            var m = MealLogic.GetMealById((int)id);
+            MealId = (int)id;
             Title = m.Title;
             Description = m.Description;
-            //Image = m.Image;
+            DisplayImage = m.Image;
             Quantity = m.Quantity;
-            UnitOfMeasureId = m.UnitOfMeasureId;
-            MealCategoryId = m.MealCategoryId;
+            UnitOfMeasure = ((UnitOfMeasureEnum)m.UnitOfMeasureId).ToString();
+            MealCategory = ((MealCategoryEnum)m.MealCategoryId).ToString();
         }
     }
 }

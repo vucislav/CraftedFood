@@ -85,5 +85,24 @@ namespace Core.Logic
                     where c.OrderId == orderId && c.DeleteDate == null
                     select c).FirstOrDefault();
         }
+
+        public static IEnumerable<OrderDTO> GetOrdersForCompanyUser(int companyUserId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from o in dc.Order
+                        where o.CompanyUserId == companyUserId && o.DeleteDate == null
+                        select new OrderDTO
+                        {
+                            OrderId = o.OrderId,
+                            CompanyUserId = o.CompanyUserId,
+                            Comment = o.Comment,
+                            Date = o.Date,
+                            MealId = o.MealId,
+                            MealTitle = o.Meal.Title,
+                            Note = o.Note
+                        }).ToList();
+            }
+        }
     }
 }

@@ -50,18 +50,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UnitOfMeasureId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UnitOfMeasures, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UnitOfMeasureId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UnitOfMeasureId, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.UnitOfMeasures)
+                @Html.ValidationMessageFor(model => model.UnitOfMeasures, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MealCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MealCategories, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MealCategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MealCategoryId, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.MealCategories)
+                @Html.ValidationMessageFor(model => model.MealCategories, "", new { @class = "text-danger" })
             </div>
         </div>
 
