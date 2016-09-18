@@ -18,7 +18,6 @@ namespace Data
         public CompanyUser()
         {
             this.Order = new HashSet<Order>();
-            this.Rating = new HashSet<Rating>();
         }
     
         public int CompanyUserId { get; set; }
@@ -32,7 +31,5 @@ namespace Data
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rating> Rating { get; set; }
     }
 }

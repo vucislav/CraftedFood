@@ -4,6 +4,7 @@
     ViewBag.Title = "Kettering";
 }
 @using Web.Models
+@using Core.Logic
 
 @*<div>
         <h4>KetteringModel</h4> <a href="#" data-toggle="modal" data-target="#add-menu-modal" class="btn btn-primary glyphicon glyphicon-plus"></a>
@@ -92,6 +93,7 @@
                     </div>
                 </div>
                 <button class="button button-block" data-toggle="modal" data-target="#edit-kettering-modal">Edit company info</button>
+                <br />
                 <button class="button button-block delete" id="@Model.KetteringId">Delete company</button>
             </div>
 
@@ -109,8 +111,26 @@
                         <input type="text" required autocomplete="off" name="Username" />
                     </div>
 
-                    <button class="button button-block" />Add</button>
+                    <button class="button button-block">Add</button>
                 </form>
+            </div>
+            <div>
+                <div class="form white">
+                    <h1>Company members</h1>
+                    <hr />
+                    @foreach (var item in Model.Members)
+                    {
+                        <h3>@(item.FirstName + " " + item.MiddleName + " " + item.LastName)</h3>
+                        <div class="info">
+                            <span>Email:&nbsp;</span><span>@item.Email</span><br />
+                            <span>Username:&nbsp;</span><span>@item.Username</span><br />
+                            <span>Phone:&nbsp;</span><span>@item.Phone</span><br />
+                        </div>
+                        <button class="button button-block kick-out" id="@UserLogic.GetKetteringUserId(item.UserId, Model.KetteringId)">Kick out</button>
+                        <hr />
+                    }
+                </div>
+
             </div>
         </div>
         <div class="col-md-8 col-sm-12">

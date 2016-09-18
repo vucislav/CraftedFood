@@ -121,7 +121,7 @@ namespace Core.Logic
                         {
                             RatingId = m.RatingId,
                             MealId = m.MealId,
-                            CompanyUserId = m.CompanyUserId,
+                            UserId = m.UserId,
                             Comment = m.Comment,
                             Mark = m.Mark,
                         }).ToList();

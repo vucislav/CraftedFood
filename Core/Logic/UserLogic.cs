@@ -253,7 +253,17 @@ namespace Core.Logic
             {
                 return (from u in dc.CompanyUser
                         where u.UserId == userId && u.CompanyId == companyId
-                        select u.CompanyUserId).FirstOrDefault();
+                        select u.CompanyUserId).ToList().LastOrDefault();
+            }
+        }
+
+        public static int GetKetteringUserId(int userId, int ketteringId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from u in dc.KetteringUser
+                        where u.UserId == userId && u.KetteringId == ketteringId
+                        select u.KetteringUserId).ToList().LastOrDefault();
             }
         }
 

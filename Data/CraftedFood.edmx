@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CraftedFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CraftedFoodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="CompanyId" />
@@ -57,9 +57,9 @@
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Image" Type="varchar" MaxLength="50" />
           <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
           <Property Name="UnitOfMeasureId" Type="int" Nullable="false" />
           <Property Name="MealCategoryId" Type="int" Nullable="false" />
-          <Property Name="Price" Type="int" />
           <Property Name="DeleteDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="MealCategory">
@@ -95,7 +95,7 @@
             <PropertyRef Name="RatingId" />
           </Key>
           <Property Name="RatingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyUserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="MealId" Type="int" Nullable="false" />
           <Property Name="Mark" Type="int" Nullable="false" />
           <Property Name="Comment" Type="varchar" MaxLength="50" />
@@ -275,14 +275,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_CompanyUser">
-          <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyUser">
-              <PropertyRef Name="CompanyUserId" />
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Rating">
-              <PropertyRef Name="CompanyUserId" />
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -360,7 +360,7 @@
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Rating_CompanyUser" Association="Self.FK_Rating_CompanyUser">
-            <End Role="CompanyUser" EntitySet="CompanyUser" />
+            <End Role="User" EntitySet="User" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
           <AssociationSet Name="FK_Rating_Meal" Association="Self.FK_Rating_Meal">
@@ -368,7 +368,8 @@
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CraftedFoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -397,7 +398,6 @@
           <NavigationProperty Name="Role" Relationship="Self.FK_CompanyUser_Role" FromRole="CompanyUser" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="Self.FK_CompanyUser_User" FromRole="CompanyUser" ToRole="User" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_CompanyUser" FromRole="CompanyUser" ToRole="Order" />
-          <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_CompanyUser" FromRole="CompanyUser" ToRole="Rating" />
         </EntityType>
         <EntityType Name="Kettering">
           <Key>
@@ -435,6 +435,7 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="UnitOfMeasureId" Type="Int32" Nullable="false" />
           <Property Name="MealCategoryId" Type="Int32" Nullable="false" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
@@ -443,7 +444,6 @@
           <NavigationProperty Name="UnitOfMeasure" Relationship="Self.FK_Meal_UnitOfMeasure" FromRole="Meal" ToRole="UnitOfMeasure" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Meal" FromRole="Meal" ToRole="Order" />
           <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_Meal" FromRole="Meal" ToRole="Rating" />
-          <Property Name="Price" Type="Int32" />
         </EntityType>
         <EntityType Name="MealCategory">
           <Key>
@@ -483,13 +483,13 @@
             <PropertyRef Name="RatingId" />
           </Key>
           <Property Name="RatingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyUserId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="MealId" Type="Int32" Nullable="false" />
           <Property Name="Mark" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="CompanyUser" Relationship="Self.FK_Rating_CompanyUser" FromRole="Rating" ToRole="CompanyUser" />
           <NavigationProperty Name="Meal" Relationship="Self.FK_Rating_Meal" FromRole="Rating" ToRole="Meal" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rating_CompanyUser" FromRole="Rating" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -524,6 +524,7 @@
           <Property Name="DeleteDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="CompanyUser" Relationship="Self.FK_CompanyUser_User" FromRole="User" ToRole="CompanyUser" />
           <NavigationProperty Name="KetteringUser" Relationship="Self.FK_KetteringUser_User" FromRole="User" ToRole="KetteringUser" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_CompanyUser" FromRole="User" ToRole="Rating" />
         </EntityType>
         <Association Name="FK_CompanyUser_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
@@ -569,18 +570,6 @@
               <PropertyRef Name="CompanyUserId" />
             </Principal>
             <Dependent Role="Order">
-              <PropertyRef Name="CompanyUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rating_CompanyUser">
-          <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="1" />
-          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CompanyUser">
-              <PropertyRef Name="CompanyUserId" />
-            </Principal>
-            <Dependent Role="Rating">
               <PropertyRef Name="CompanyUserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -693,6 +682,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Rating_CompanyUser">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CraftedFoodEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Company" EntityType="Self.Company" />
           <EntitySet Name="CompanyUser" EntityType="Self.CompanyUser" />
@@ -721,10 +722,6 @@
           <AssociationSet Name="FK_Order_CompanyUser" Association="Self.FK_Order_CompanyUser">
             <End Role="CompanyUser" EntitySet="CompanyUser" />
             <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rating_CompanyUser" Association="Self.FK_Rating_CompanyUser">
-            <End Role="CompanyUser" EntitySet="CompanyUser" />
-            <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
           <AssociationSet Name="FK_KetteringUser_Kettering" Association="Self.FK_KetteringUser_Kettering">
             <End Role="Kettering" EntitySet="Kettering" />
@@ -760,6 +757,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Rating_Meal" Association="Self.FK_Rating_Meal">
             <End Role="Meal" EntitySet="Meal" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_CompanyUser" Association="Self.FK_Rating_CompanyUser">
+            <End Role="User" EntitySet="User" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
         </EntityContainer>
@@ -818,13 +819,13 @@
           <EntitySetMapping Name="Meal">
             <EntityTypeMapping TypeName="CraftedFoodModel.Meal">
               <MappingFragment StoreEntitySet="Meal">
-                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="MealId" ColumnName="MealId" />
                 <ScalarProperty Name="MenuId" ColumnName="MenuId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="UnitOfMeasureId" ColumnName="UnitOfMeasureId" />
                 <ScalarProperty Name="MealCategoryId" ColumnName="MealCategoryId" />
                 <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
@@ -866,7 +867,7 @@
             <EntityTypeMapping TypeName="CraftedFoodModel.Rating">
               <MappingFragment StoreEntitySet="Rating">
                 <ScalarProperty Name="RatingId" ColumnName="RatingId" />
-                <ScalarProperty Name="CompanyUserId" ColumnName="CompanyUserId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="MealId" ColumnName="MealId" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />

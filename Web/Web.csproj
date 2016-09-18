@@ -242,6 +242,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\addMeal.js" />
+    <Content Include="Scripts\Custom\company.js" />
     <Content Include="Scripts\Custom\index.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Custom\menus.js" />
@@ -284,12 +285,13 @@
     <Content Include="Views\Home\_AddMenu.cshtml" />
     <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Home\_Menus.cshtml" />
-    <Content Include="Views\Home\AddRating.cshtml" />
+    <Content Include="Views\Home\_AddRating.cshtml" />
     <Content Include="Views\Home\Meal.cshtml" />
-    <Content Include="Views\Home\Ratings.cshtml" />
+    <Content Include="Views\Home\_Ratings.cshtml" />
     <Content Include="Views\Home\_EditKettering.cshtml" />
     <Content Include="Views\Home\_PlaceOrder.cshtml" />
     <Content Include="Views\Home\Orders.cshtml" />
+    <Content Include="Views\Home\_EditCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

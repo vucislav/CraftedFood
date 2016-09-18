@@ -13,6 +13,7 @@ namespace Web.Models
         public string Description { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
+        public IEnumerable<UserModel> Members { get; set; }
 
         public KetteringModel()
         {
@@ -27,6 +28,16 @@ namespace Web.Models
             Description = ket.Description;
             Address = ket.Address;
             Phone = ket.Phone;
+            Members = ket.Members.Select(x => new UserModel
+            {
+                UserId = x.UserId,
+                FirstName = x.FirstName,
+                MiddleName = x.MiddleName,
+                LastName = x.LastName,
+                Email = x.Email,
+                Username = x.Username,
+                Phone = x.Phone
+            });
         }
     }
 }

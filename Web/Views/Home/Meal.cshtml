@@ -7,67 +7,147 @@
 @using Web.Models
 @using Core.Logic
 
-<h2>Meal</h2>
+@*<h2>Meal</h2>
 
-<div>
-    <h4>MealModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <div>
+        <h4>MealModel</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitOfMeasure)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.UnitOfMeasure)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UnitOfMeasure)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.UnitOfMeasure)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MealCategory)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.MealCategory)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MealCategory)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.MealCategory)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+        </dl>
 
-    @Html.Partial("_PlaceOrder", new OrderModel(Model.MealId, UserLogic.GetCompanyId((int)Session["userId"])))
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        @Html.Partial("_PlaceOrder", new OrderModel(Model.MealId, UserLogic.GetCompanyId((int)Session["userId"])))
+    </div>*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/normalize.css">
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/style.css">
+    <style>
+        input {
+            max-width: 100%;
+        }
+
+        .form {
+            top: 50%;
+        }
+
+        .white {
+            color: white;
+        }
+
+        span {
+            padding: 0;
+            margin: 0;
+        }
+
+        * {
+            font-family: Titillium;
+        }
+
+        .info {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            font-size: 125%;
+        }
+
+        .title {
+            margin-top: 15%;
+            margin-bottom: 0;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form">
+                <img class="img-responsive" src="@Url.Action("getImg", "Home", new { img = Model.DisplayImage })" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form white text-center">
+                <h3 class="title">@Model.Title</h3>
+                <div class="info">
+                    <span>Quantity:&nbsp;</span><span>@(Model.Quantity + " " + Model.UnitOfMeasure)</span><br />
+                    <span>Category:&nbsp;</span><span>@Model.MealCategory</span><br />
+                    <span>Price:&nbsp;</span><span>@Model.Price</span><br />
+                    <span>Description:&nbsp;</span><span>@Model.Description</span><br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Partial("_PlaceOrder", new OrderModel(Model.MealId, UserLogic.GetCompanyId((int)Session["userId"])))
+        </div>
+        <div class="col-md-6">
+            @Html.Partial("_AddRating", new RatingModel(Model.MealId, (int)Session["userId"]))
+            @Html.Partial("_Ratings", RatingModel.GetRatingsForMeal(Model.MealId))
+        </div>
+    </div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Plugins/sign-up-login-form/js/index.js"></script>
+
+
+
+</body>
+</html>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

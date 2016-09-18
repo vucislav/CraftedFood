@@ -15,7 +15,7 @@ namespace Core.Logic
             Rating r = new Rating
             {
                 RatingId = rating.RatingId,
-                CompanyUserId = rating.CompanyUserId,
+                UserId = rating.UserId,
                 MealId = rating.MealId,
                 Mark = rating.MealId,
                 Comment = rating.Comment
@@ -41,7 +41,7 @@ namespace Core.Logic
                 var r = GetRatingById(rating.RatingId, dc);
                 if (r != null)
                 {
-                    r.CompanyUserId = rating.CompanyUserId;
+                    r.UserId = rating.UserId;
                     r.MealId = rating.MealId;
                     r.Mark = rating.MealId;
                     r.Comment = rating.Comment;
@@ -86,7 +86,7 @@ namespace Core.Logic
                 {
                     RatingId = r.RatingId,
                     MealId = r.MealId,
-                    CompanyUserId = r.CompanyUserId,
+                    UserId = r.UserId,
                     Comment = r.Comment,
                     Mark = r.Mark,
                 };

@@ -95,8 +95,10 @@ namespace Core.Logic
                     Description = com.Description,
                     Address = com.Address,
                     Phone = com.Phone,
-                    Members = com.CompanyUser.ToList().Select(x => new UserDTO
+                    Members = com.CompanyUser.Where(x => x.DeleteDate == null && x.User.DeleteDate == null)
+                    .Select(x => new UserDTO
                     {
+                        UserId = x.User.UserId,
                         FirstName = x.User.FirstName,
                         MiddleName = x.User.MiddleName,
                         LastName = x.User.LastName,

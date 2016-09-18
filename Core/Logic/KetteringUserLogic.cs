@@ -64,10 +64,10 @@ namespace Core.Logic
             }
         }
 
-        private static KetteringUser GetKetteringUserById(int ketteringId, CraftedFoodEntities dc)
+        private static KetteringUser GetKetteringUserById(int ketteringUserId, CraftedFoodEntities dc)
         {
             return (from c in dc.KetteringUser
-                    where c.KetteringId == ketteringId && c.DeleteDate == null
+                    where c.KetteringUserId == ketteringUserId && c.DeleteDate == null
                     select c).FirstOrDefault();
         }
     }

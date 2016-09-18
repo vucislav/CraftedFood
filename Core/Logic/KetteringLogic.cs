@@ -94,14 +94,25 @@ namespace Core.Logic
                     Name = ket.Name,
                     Description = ket.Description,
                     Address = ket.Address,
-                    Phone = ket.Phone
+                    Phone = ket.Phone,
+                    Members = ket.KetteringUser.Where(x => x.DeleteDate == null && x.User.DeleteDate == null)
+                    .Select(x => new UserDTO
+                    {
+                        UserId = x.User.UserId,
+                        FirstName = x.User.FirstName,
+                        MiddleName = x.User.MiddleName,
+                        LastName = x.User.LastName,
+                        Email = x.User.Email,
+                        Username = x.User.Username,
+                        Phone = x.User.Phone
+                    })
                 };
             }
         }
 
         private static Kettering GetKetteringById(int ketteringId, CraftedFoodEntities dc)
         {
-            return (from c in dc.Kettering
+            return (from c in dc.Kettering.Include("KetteringUser.User")
                     where c.KetteringId == ketteringId && c.DeleteDate == null
                     select c).FirstOrDefault();
         }

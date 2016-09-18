@@ -9,7 +9,7 @@ namespace Web.Models
     public class RatingModel
     {
         public int RatingId { get; set; }
-        public int CompanyUserId { get; set; }
+        public int UserId { get; set; }
         public int MealId { get; set; }
         public int Mark { get; set; }
         public string Comment { get; set; }
@@ -19,10 +19,10 @@ namespace Web.Models
 
         }
 
-        public RatingModel(int mealId, int companyUserId)
+        public RatingModel(int mealId, int userId)
         {
             MealId = mealId;
-            CompanyUserId = companyUserId;
+            UserId = userId;
         }
 
         public static IEnumerable<RatingModel> GetRatingsForMeal(int mealId)
@@ -31,7 +31,7 @@ namespace Web.Models
             {
                 RatingId = x.RatingId,
                 MealId = x.MealId,
-                CompanyUserId = x.CompanyUserId,
+                UserId = x.UserId,
                 Comment = x.Comment,
                 Mark = x.Mark,
         });

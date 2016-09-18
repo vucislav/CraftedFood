@@ -323,10 +323,10 @@ namespace Web.Controllers
                     MealId = model.MealId,
                     Mark = model.Mark,
                     Comment = model.Comment,
-                    CompanyUserId = model.CompanyUserId
+                    UserId = model.UserId
                 });
             }
-            return RedirectToAction("Ratings/" + model.MealId);
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
         
         public ActionResult EditKettering(KetteringModel model)
@@ -347,6 +347,38 @@ namespace Web.Controllers
             KetteringLogic.Delete(id);
             return RedirectToAction("Index");
         }
+
+        public ActionResult EditCompany(CompanyModel model)
+        {
+            CompanyLogic.Edit(new CompanyDTO
+            {
+                CompanyId = model.CompanyId,
+                Name = model.Name,
+                Description = model.Description,
+                Address = model.Address,
+                Phone = model.Phone
+            });
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
+        public ActionResult DeleteCompany(int id)
+        {
+            CompanyLogic.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult KickCompanyUser(int id)
+        {
+            CompanyUserLogic.Delete(id);
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
+        public ActionResult KickKetteringUser(int id)
+        {
+            KetteringUserLogic.Delete(id);
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
 
         [AllowAnonymous]
         [HttpPost]

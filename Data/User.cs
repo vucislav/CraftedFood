@@ -19,6 +19,7 @@ namespace Data
         {
             this.CompanyUser = new HashSet<CompanyUser>();
             this.KetteringUser = new HashSet<KetteringUser>();
+            this.Rating = new HashSet<Rating>();
         }
     
         public int UserId { get; set; }
@@ -36,5 +37,7 @@ namespace Data
         public virtual ICollection<CompanyUser> CompanyUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KetteringUser> KetteringUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Rating { get; set; }
     }
 }

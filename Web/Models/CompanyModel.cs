@@ -32,6 +32,7 @@ namespace Web.Models
             IsKettering = com.IsKettering;
             Members = com.Members.Select(x => new UserModel
             {
+                UserId = x.UserId,
                 FirstName = x.FirstName,
                 MiddleName = x.MiddleName,
                 LastName = x.LastName,

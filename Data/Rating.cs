@@ -15,13 +15,13 @@ namespace Data
     public partial class Rating
     {
         public int RatingId { get; set; }
-        public int CompanyUserId { get; set; }
+        public int UserId { get; set; }
         public int MealId { get; set; }
         public int Mark { get; set; }
         public string Comment { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
     
-        public virtual CompanyUser CompanyUser { get; set; }
         public virtual Meal Meal { get; set; }
+        public virtual User User { get; set; }
     }
 }
