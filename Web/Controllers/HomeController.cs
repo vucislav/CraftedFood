@@ -402,8 +402,18 @@ namespace Web.Controllers
         public ActionResult Orders(int id)
         {
             return View(OrderModel.GetOrdersForCompanyUser(id));
-            //return View(OrderModel.GetOrdersForKettering(id));
-            //return View(OrderModel.GetOrdersForCompany(id));
+        }
+
+        [AllowAnonymous]
+        public ActionResult OrdersForKettering(int id)
+        {
+            return View(OrderModel.GetOrdersForKettering(id));
+        }
+
+        [AllowAnonymous]
+        public ActionResult OrdersForCompany(int id)
+        {
+            return View(OrderModel.GetOrdersForCompany(id));
         }
 
         [AllowAnonymous]

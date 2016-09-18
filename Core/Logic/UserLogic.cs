@@ -1,4 +1,5 @@
 ﻿using Core.DTOs;
+using Core.Enumerations;
 using Data;
 using System;
 using System.Collections.Generic;
@@ -274,6 +275,16 @@ namespace Core.Logic
                 return (from u in dc.CompanyUser
                         where u.UserId == userId
                         select u.CompanyId).FirstOrDefault();
+            }
+        }
+
+        public static bool IsAdmin(int userId, int companyId)
+        {
+            using (var dc = new CraftedFoodEntities())
+            {
+                return (from u in dc.CompanyUser
+                        where u.UserId == userId && u.CompanyId == companyId
+                        select u.RoleId).FirstOrDefault() == (int)RoleEnum.Admin;
             }
         }
     }
