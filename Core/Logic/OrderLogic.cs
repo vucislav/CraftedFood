@@ -13,17 +13,21 @@ namespace Core.Logic
     {
         public static void Create(OrderDTO order)
         {
-            Order o = new Order
-            {
-                OrderId = order.OrderId,
-                CompanyUserId = order.CompanyUserId,
-                MealId = order.MealId,
-                Date = order.Date,
-                Note = order.Note,
-                Comment = order.Comment
-            };
             using (var dc = new CraftedFoodEntities())
             {
+                var companyUserId = (from c in dc.CompanyUser
+                                     where c.UserId == order.UserId && c.CompanyId == order.CompanyId
+                                     select c.CompanyUserId).ToList().FirstOrDefault();
+
+                Order o = new Order
+                {
+                    OrderId = order.OrderId,
+                    CompanyUserId = companyUserId,
+                    MealId = order.MealId,
+                    Date = order.Date,
+                    Note = order.Note,
+                };
+
                 dc.Order.Add(o);
                 try
                 {

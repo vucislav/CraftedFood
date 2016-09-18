@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Web.Models.CompanyModel>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/normalize.css">
+
+    <link rel="stylesheet" href="~/Plugins/sign-up-login-form/css/style.css">
+    <style>
+        input {
+            max-width: 100%;
+        }
+
+        .form {
+            top: 50%;
+        }
+
+        .white {
+            color: white;
+        }
+
+        span {
+            padding: 0;
+            margin: 0;
+        }
+
+        * {
+            font-family: Titillium;
+        }
+
+        .info {
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        .title {
+            margin-bottom: 0;
+        }
+    </style>
+
+
+</head>
+<body>
+    @if (Model.Any())
+            {
+        <div class="form">
+            <h1 class="title">Search Result</h1>
+        </div>
+
+        foreach (var item in Model)
+        {
+            <div class="form ribbon-content">
+                @if (item.IsKettering)
+                { <div class="ribbon base"><span>Kettering Company</span></div> }
+                <div class="text-center white">
+                    <h2 class="text-center">@item.Name</h2>
+                    <div class="info">
+                        <span>Address:&nbsp;</span><span>@item.Address</span><br />
+                        <span>Phone:&nbsp;</span><span>@item.Phone</span><br />
+                        <span>Description:&nbsp;</span><span>@item.Description</span><br />
+                    </div>
+                    <button class="button button-block company-btn @if (item.IsKettering) { <text>kettering</text> } " id="@item.CompanyId">Open</button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="form">
+            <h1>No companies found</h1>
+        </div>
+    }
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Plugins/sign-up-login-form/js/index.js"></script>
+
+
+
+</body>
+</html>
+
+

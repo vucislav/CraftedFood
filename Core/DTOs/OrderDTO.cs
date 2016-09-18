@@ -9,6 +9,7 @@ namespace Core.DTOs
     public class OrderDTO
     {
         public int OrderId { get; set; }
+        public int UserId { get; set; }
         public int CompanyUserId { get; set; }
         public int CompanyId { get; set; }
         public int MealId { get; set; }

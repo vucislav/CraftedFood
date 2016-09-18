@@ -10,6 +10,9 @@ namespace Web.Models
     {
         public int RatingId { get; set; }
         public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public int MealId { get; set; }
         public int Mark { get; set; }
         public string Comment { get; set; }
@@ -32,6 +35,9 @@ namespace Web.Models
                 RatingId = x.RatingId,
                 MealId = x.MealId,
                 UserId = x.UserId,
+                FirstName = x.FirstName,
+                MiddleName = x.MiddleName,
+                LastName = x.LastName,
                 Comment = x.Comment,
                 Mark = x.Mark,
         });

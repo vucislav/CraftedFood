@@ -122,6 +122,9 @@ namespace Core.Logic
                             RatingId = m.RatingId,
                             MealId = m.MealId,
                             UserId = m.UserId,
+                            FirstName = m.User.FirstName,
+                            MiddleName = m.User.MiddleName,
+                            LastName = m.User.LastName,
                             Comment = m.Comment,
                             Mark = m.Mark,
                         }).ToList();

@@ -58,6 +58,12 @@
                     }
                     else
                     {
+                        <li>
+                            <form action="/Home/Search" method="get">
+                                <input type="text" name="Term" />
+                                <input type="submit" style="display: none;" />
+                            </form>
+                        </li>
                         <li><a href="" data-toggle="modal" data-target="#edit-profile-modal"><span class="glyphicon glyphicon-user"></span>@(UserLogic.GetUserById((int)Session["userId"]).FirstName + " " + UserLogic.GetUserById((int)Session["userId"]).LastName)</a></li>
                         <li><a href="/Home/LogOut"><span class=""></span>Log Out</a></li>
                     }
@@ -74,11 +80,11 @@
 
     <div id="edit-profile-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-                <div class="modal-body">
-                    @if (Session["userId"] != null)
-                    {
-                        @Html.Partial("_EditProfile", new UserModel((int)Session["userId"]))
-                    }
+            <div class="modal-body">
+                @if (Session["userId"] != null)
+                {
+                    @Html.Partial("_EditProfile", new UserModel((int)Session["userId"]))
+                }
             </div>
 
         </div>

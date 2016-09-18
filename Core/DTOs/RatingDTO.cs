@@ -10,6 +10,9 @@ namespace Core.DTOs
     {
         public int RatingId { get; set; }
         public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public int MealId { get; set; }
         public int Mark { get; set; }
         public string Comment { get; set; }
