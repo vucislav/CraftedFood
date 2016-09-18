@@ -4,7 +4,7 @@
     ViewBag.Title = "Ratings";
 }
 
-<h2>Ratings</h2>
+@*<h2>Ratings</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -36,4 +36,16 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+
+<div class="form white">
+    <h1>Ratings</h1>
+    <hr />
+    @foreach (var item in Model)
+    {
+        <h3>@(item.FirstName + " " + item.MiddleName + " " + item.LastName + " - " + item.Mark)</h3>
+        <p>@item.Comment</p>
+        <hr />
+    }
+</div>

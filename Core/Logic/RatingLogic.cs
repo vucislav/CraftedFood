@@ -17,7 +17,7 @@ namespace Core.Logic
                 RatingId = rating.RatingId,
                 UserId = rating.UserId,
                 MealId = rating.MealId,
-                Mark = rating.MealId,
+                Mark = rating.Mark,
                 Comment = rating.Comment
             };
             using (var dc = new CraftedFoodEntities())

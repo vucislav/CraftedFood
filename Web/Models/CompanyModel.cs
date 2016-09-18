@@ -54,5 +54,19 @@ namespace Web.Models
                 IsKettering = x.IsKettering
             });
         }
+
+        public static IEnumerable<CompanyModel> GetCompaniesSearch(string term)
+        {
+            var companies = CompanyLogic.FilterCompanies(term);
+            return companies.Select(x => new CompanyModel
+            {
+                CompanyId = x.CompanyId,
+                Name = x.Name,
+                Address = x.Address,
+                Phone = x.Phone,
+                Description = x.Phone,
+                IsKettering = x.IsKettering
+            });
+        }
     }
 }

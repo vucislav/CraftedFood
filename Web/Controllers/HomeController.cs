@@ -389,9 +389,9 @@ namespace Web.Controllers
                 OrderLogic.Create(new OrderDTO
                 {
                     MealId = model.MealId,
-                    CompanyUserId = model.CompanyUserId,
+                    UserId = model.UserId,
+                    CompanyId = model.CompanyId,
                     Note = model.Note,
-                    Comment = model.Comment,
                     Date = model.Date,
                 });
             }
@@ -421,6 +421,11 @@ namespace Web.Controllers
         {
             OrderLogic.Delete(orderId);
             return View("Orders", OrderModel.GetOrdersForCompanyUser(companyUserId));
+        }
+
+        public ActionResult Search(string term)
+        {
+            return View(CompanyModel.GetCompaniesSearch(term));
         }
     }
 }

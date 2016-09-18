@@ -1,7 +1,7 @@
 ﻿@model Web.Models.OrderModel
 
 
-@using (Html.BeginForm("_PlaceOrder", "Home")) 
+@*@using (Html.BeginForm("_PlaceOrder", "Home")) 
 {
     @Html.AntiForgeryToken()
     
@@ -42,7 +42,42 @@
             </div>
         </div>
     </div>
-}
+}*@
+
+<div class="form">
+    <h1>Add rating</h1>
+
+    <form action="/Home/_PlaceOrder" method="post">
+
+        @Html.HiddenFor(model => model.MealId)
+        @Html.HiddenFor(model => model.UserId)
+
+        <label>Company</label>
+        <select name="CompanyId">
+            @foreach (var item in Model.Companies)
+            {
+                <option value="@item.CompanyId">@item.Name</option>
+            }
+        </select>
+
+        <div class="field-wrap">
+            <label>
+                Date
+            </label>
+            <input id="Date" name="Date" type="text" value="@ViewData["Date"]">
+        </div>
+
+        <div class="field-wrap">
+            <label>
+                Note
+            </label>
+            <input type="text" required autocomplete="off" name="Note" />
+        </div>
+
+        <button class="button button-block" />Create</button>
+
+    </form>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

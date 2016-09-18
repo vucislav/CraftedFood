@@ -9,6 +9,7 @@ namespace Web.Models
     public class OrderModel
     {
         public int OrderId { get; set; }
+        public int UserId { get; set; }
         public int CompanyUserId { get; set; }
         public int CompanyId { get; set; }
         public int MealId { get; set; }
@@ -18,15 +19,26 @@ namespace Web.Models
         public string Comment { get; set; }
         public int Price { get; set; }
 
+        public IEnumerable<CompanyModel> Companies { get; set; }
+
         public OrderModel()
         {
 
         }
 
-        public OrderModel(int mealId, int companyUserId)
+        public OrderModel(int mealId, int companyUserId, int userId)
         {
             MealId = mealId;
+            UserId = userId;
             CompanyUserId = companyUserId;
+            Companies = CompanyLogic.GetCompaniesForUser(companyUserId).Select(x => new CompanyModel
+            {
+                CompanyId = x.CompanyId,
+                Name = x.Name,
+                Address = x.Address,
+                Description = x.Description,
+                Phone = x.Phone
+            });
         }
 
         public OrderModel(int companyUserId)
