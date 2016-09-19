@@ -122,6 +122,8 @@
                     <span>Phone:&nbsp;</span><span>@Model.Phone</span><br />
                     <span>Description:&nbsp;</span><span>@Model.Description</span><br />
                 </div>
+                <button class="button button-block your-orders" id="@Session["userId"]">Your orders</button>
+                <br />
                 <button class="button button-block" data-toggle="modal" data-target="#edit-company-modal">Edit company info</button>
                 <br />
                 <button class="button button-block delete" id="@Model.CompanyId">Delete company</button>

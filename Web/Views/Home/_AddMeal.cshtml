@@ -114,30 +114,41 @@
                 Unit of measure<span class="req">*</span>
             </label>
         </div>
-        <select name="UnitOfMeasureId">
-            <!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
-            <option value="0">Select an Option</option>
-            <option value="1">Grams</option>
-            <option value="2">Mililiters</option>
-            <option value="3">Pieces</option>
-        </select>
+
+        <div>
+            <select>
+                <option value="0">Select an Option</option>
+                <option value="1">Grams</option>
+                <option value="2">Mililiters</option>
+                <option value="3">Pieces</option>
+            </select>
+
+            <input style="display: none;" name="UnitOfMeasureId" value="0" />
+        </div>
+
+        @*@Html.EnumDropDownListFor(x => x.MealCategories)*@
 
         <div class="field-wrap">
             <label>
                 Meal category<span class="req">*</span>
             </label>
         </div>
-        <select name="MealCategoryId">
-            <!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
-            <option value="0">Select an Option</option>
-            <option value="1">Salad</option>
-            <option value="2">Sandwich</option>
-            <option value="3">Bakery</option>
-            <option value="4">Pasta</option>
-            <option value="5">Sweet</option>
-            <option value="6">Drink</option>
-            <option value="7">Cooked meal</option>
-        </select>
+
+        <div>
+            <select>
+                <option value="0">Select an Option</option>
+                <option value="1">Salad</option>
+                <option value="2">Sandwich</option>
+                <option value="3">Bakery</option>
+                <option value="4">Pasta</option>
+                <option value="5">Sweet</option>
+                <option value="6">Drink</option>
+                <option value="7">Cooked meal</option>
+            </select>
+            <input style="display: none;" name="MealCategoryId" value="0" />
+       </div>
+
+        @*@Html.EnumDropDownListFor(x => x.UnitOfMeasures)*@
 
         <div class="field-wrap">
             <label>

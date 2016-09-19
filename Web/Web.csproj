@@ -248,6 +248,7 @@
     <Content Include="Scripts\Custom\menus.js" />
     <Content Include="Scripts\Custom\meal.js" />
     <Content Include="Scripts\Custom\placeOrder.js" />
+    <Content Include="Scripts\Custom\search.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />

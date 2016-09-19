@@ -11,6 +11,7 @@ namespace Web.Models
         public int OrderId { get; set; }
         public int UserId { get; set; }
         public int CompanyUserId { get; set; }
+        public string CompanyName { get; set; }
         public int CompanyId { get; set; }
         public int MealId { get; set; }
         public string MealTitle { get; set; }
@@ -46,12 +47,13 @@ namespace Web.Models
 
         }
 
-        public static IEnumerable<OrderModel> GetOrdersForCompanyUser(int companyUserId)
+        public static IEnumerable<OrderModel> GetOrdersForCompanyUser(int userId)
         {
-            return OrderLogic.GetOrdersForCompanyUser(companyUserId).Select(x => new OrderModel
+            return OrderLogic.GetOrdersForCompanyUser(userId).Select(x => new OrderModel
             {
                 OrderId = x.OrderId,
                 CompanyUserId = x.CompanyUserId,
+                CompanyName = x.CompanyName,
                 CompanyId = x.CompanyId,
                 Comment = x.Comment,
                 Date = x.Date,

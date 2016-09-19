@@ -9,3 +9,10 @@ $(".kick-out").click(function () {
         window.location.reload();
     })
 });
+
+$(".your-orders").click(function () {
+    //$.post("/Home/GetCompanyUserId", { userId: $(this).data["userid"], companyId: $(this).data["companyid"] }, function (data) {
+    //    window.location.href = "/Home/Orders/" + data;
+    //});
+    window.location.href = "/Home/Orders/" + $(this).attr('id');
+});

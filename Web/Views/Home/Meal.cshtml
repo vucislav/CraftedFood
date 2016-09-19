@@ -131,9 +131,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        @*<div class="col-md-6">
             @Html.Partial("_PlaceOrder", new OrderModel(Model.MealId, UserLogic.GetCompanyId((int)Session["userId"]), (int)Session["userId"]))
-        </div>
+        </div>*@
         <div class="col-md-6">
             @Html.Partial("_AddRating", new RatingModel(Model.MealId, (int)Session["userId"]))
             @Html.Partial("_Ratings", RatingModel.GetRatingsForMeal(Model.MealId))

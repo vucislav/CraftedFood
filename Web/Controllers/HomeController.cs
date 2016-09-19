@@ -231,8 +231,8 @@ namespace Web.Controllers
                     Description = model.Description,
                     Image = fileName,
                     Quantity = model.Quantity,
-                    UnitOfMeasureId = (int)model.UnitOfMeasures,
-                    MealCategoryId = (int)model.MealCategories,
+                    UnitOfMeasureId = model.UnitOfMeasureId,
+                    MealCategoryId = model.MealCategoryId,
                     Price = model.Price
                 });
             }
@@ -328,7 +328,7 @@ namespace Web.Controllers
             }
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
-        
+
         public ActionResult EditKettering(KetteringModel model)
         {
             KetteringLogic.Edit(new KetteringDTO
@@ -402,6 +402,12 @@ namespace Web.Controllers
         public ActionResult Orders(int id)
         {
             return View(OrderModel.GetOrdersForCompanyUser(id));
+        }
+
+        public ActionResult GetCompanyUserId(int userId, int companyId)
+        {
+            var companyUserId = UserLogic.GetCompanyUserId(userId, companyId);
+            return Json(companyUserId);
         }
 
         [AllowAnonymous]

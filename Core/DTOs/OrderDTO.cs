@@ -12,6 +12,7 @@ namespace Core.DTOs
         public int UserId { get; set; }
         public int CompanyUserId { get; set; }
         public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
         public int MealId { get; set; }
         public string MealTitle { get; set; }
         public DateTime Date { get; set; }
